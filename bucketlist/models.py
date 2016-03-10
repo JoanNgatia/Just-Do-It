@@ -1,25 +1,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
 
-class Account(AbstractBaseUser):
-    """Extend Django's built -in User model that inherits from AbstractUser."""
-
-    username = models.CharField(max_length=80, unique=True)
-    email = models.EmailField(unique=True)
-
-    tagline = models.CharField(max_length=140)
-
-    is_admin = models.BooleanField(default=False)
-
-    # specify the required field and default username field
-    USERNAME_FIELD = 'username'
-
-    def __unicode__(self):
-        """Display string representation of username."""
-        return self.username
+class Account(AbstractUser):
+    tagline = models.TextField(max_length=250)
 
 
 class Base(models.Model):
