@@ -5,7 +5,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Account(AbstractUser):
+    """Extend django's user model with added fields."""
+
     tagline = models.TextField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Base(models.Model):
@@ -17,6 +21,8 @@ class Base(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        """Extend parent meta class."""
+
         abstract = True
         ordering = ['updated_at']
 
