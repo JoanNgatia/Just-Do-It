@@ -1,16 +1,18 @@
 from django.shortcuts import render
-from rest_framework import permissions, viewsets
-
-from models import Account
-# from permissions import AccountPermissions
-from serializers import AccountSerializer
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from models import Account, Bucketlist
+from permissions import IsAccountOwner
+from serializers import AccountSerializer, BucketlistSerializer
 
 # Create your views here.
 # def bucketlists(request):
 #     return render(request, 'bucketlists/bucketlists.html', {})
 
 
-class AccountViewSet(viewsets.ModelViewSet):
+class AccountsList(generics.ListAPIView):
     """Use DRF viewset to define Account CRUD methods."""
 
     queryset = Account.objects.all()
@@ -42,3 +44,28 @@ class AccountViewSet(viewsets.ModelViewSet):
             'status': 'Bad Request',
             'message': 'Account could not be created with given details.'
         }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AccountsDetail(generics.RetrieveAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+
+
+class BucketList(generics.ListCreateAPIView):
+    """Handle /api/v1/bucketlists/ path."""
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = Bucketlist.objects.all()
+    serializer_class = BucketlistSerializer
+
+    def perform_create(self, serializer):
+        """Associate bucketlist to an account."""
+        serializer.save(owner=self.request.account)
+
+
+class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Handle /api/v1/bucketlists/<bucketlist_id> path."""
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = Bucketlist.objects.all()
+    serializer_class = BucketlistSerializer

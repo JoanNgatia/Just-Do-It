@@ -10,13 +10,15 @@ class AccountSerializer(serializers.ModelSerializer):
     # define that password can be changed only if need be
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
+    bucketlists = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Bucketlist.objects.all())
 
     class Meta:
         """Define metadata the serializer should use."""
 
         model = Account
         fields = ('id', 'username', 'created_at', 'updated_at',
-                  'tagline', 'password', 'confirm_password',)
+                  'tagline', 'password', 'confirm_password', 'bucketlists')
         read_only_fields = ('created_at', 'updated_at',)
 
     def create(self, **validated_data):
@@ -64,11 +66,12 @@ class BucketlistitemSerializer(serializers.ModelSerializer):
 class BucketlistSerializer(serializers.ModelSerializer):
     """Define bucketlist fields that will be serialized."""
 
-    items = BucketlistitemSerializer()
+    creator = serializers.ReadOnlyField(source='owner.username')
+    # items = BucketlistitemSerializer()
 
     class Meta:
         model = Bucketlist
-        fields = ('id', 'name', 'creator', 'created_at', 'updated_at''items')
+        fields = ('id', 'name', 'creator', 'created_at', 'updated_at')
 
         read_only_fields = ('created_at', 'updated_at')
 
