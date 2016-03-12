@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
-from models import Account, Bucketlist
+from models import Account, Bucketlist, Bucketlistitem
 from permissions import IsOwnerOrReadOnly
-from serializers import AccountSerializer, BucketlistSerializer
+from serializers import AccountSerializer, BucketlistSerializer, \
+    BucketlistitemSerializer
 
 
 # @api_view(('GET',))
@@ -57,8 +58,11 @@ class AccountsDetail(generics.RetrieveAPIView):
     serializer_class = AccountSerializer
 
 
-class BucketList(generics.ListCreateAPIView):
-    """Handle /api/v1/bucketlists/ path."""
+class BucketListView(generics.ListCreateAPIView):
+    """Handle /api/v1/bucketlists/ path.
+
+    Allow for retrieval of all bucektlists and bucketlist creation.
+    """
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Bucketlist.objects.all()
@@ -70,9 +74,50 @@ class BucketList(generics.ListCreateAPIView):
 
 
 class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
-    """Handle /api/v1/bucketlists/<bucketlist_id> path."""
+    """Handle /api/v1/bucketlists/<bucketlist_id> path.
+
+    Allow for retrieval of one bucketlists, its edition and deletion.
+    """
 
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
+
+
+class BucketlistItemView(generics.ListCreateAPIView):
+    """Handle /api/v1/bucketlists/<bucketlist_id>/items path.
+
+    Allow for bucketlist item creation.
+    """
+
+    permission_classes = (
+        permissions.IsAuthenticated, IsOwnerOrReadOnly)
+    queryset = Bucketlistitem.objects.all()
+    serializer_class = BucketlistitemSerializer
+
+    def perform_create(self, serializer):
+        """Create a bucketlist item with values passed in request."""
+        pk = self.kwargs.get('pk')
+        bucketlist = get_object_or_404(
+            Bucketlist, pk=pk, creator=self.request.user)
+        serializer.save(bucketlist=bucketlist, creator=self.request.user)
+
+
+class BucketlistItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Handle /api/v1/bucketlists/<bucketlist_id>/items/<item_id>/path.
+
+    Allow for edition and deletion of a bucketlistitem."""
+
+    # permission_classes = (
+        # permissions.IsAuthenticated, IsOwnerOrReadOnly)
+    queryset = Bucketlistitem.objects.all()
+    serializer_class = BucketlistitemSerializer
+
+    def get_bucketlistitem(self):
+        """Retrieve specific bucektlistitem from request body."""
+        pk = self.kwargs.get('pk')
+        pk_item = self.kwargs.get('pk_item')
+        bucketlistitem = get_object_or_404(
+            Bucketlistitem, bucketlist=pk, pk=pk_item)
+        return bucketlistitem
