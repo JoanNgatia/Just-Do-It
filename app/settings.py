@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bucketlist',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -129,3 +130,8 @@ STATIC_URL = '/static/'
 # Default user creation to Account model
 
 AUTH_USER_MODEL = 'bucketlist.Account'
+
+# pagination class
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
