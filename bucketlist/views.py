@@ -3,13 +3,19 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 from models import Account, Bucketlist
-from permissions import IsAccountOwner
+from permissions import IsOwnerOrReadOnly
 from serializers import AccountSerializer, BucketlistSerializer
 
-# Create your views here.
-# def bucketlists(request):
-#     return render(request, 'bucketlists/bucketlists.html', {})
+
+# @api_view(('GET',))
+# def api_root(request, format=None):
+#     return Response({
+#         'accounts': reverse('user-list', request=request, format=format),
+#         'bucketlists': reverse('bucketlist', request=request, format=format)
+#     })
 
 
 class AccountsList(generics.ListAPIView):
@@ -28,7 +34,7 @@ class AccountsList(generics.ListAPIView):
         if self.request.method == 'POST':
             return (permissions.AllowAny(), )
 
-        return(permissions.IsAuthenticated(), IsAccountOwner(), )
+        return(permissions.IsAuthenticated(), IsOwnerOrReadOnly(), )
 
     def create(self, request):
         """Override viesets .save method to allow for passwor hashing."""
@@ -59,13 +65,14 @@ class BucketList(generics.ListCreateAPIView):
     serializer_class = BucketlistSerializer
 
     def perform_create(self, serializer):
-        """Associate bucketlist to an account."""
-        serializer.save(owner=self.request.account)
+        """Associate bucketlist to an account,save data passed in request."""
+        serializer.save(creator=self.request.user)
 
 
 class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id> path."""
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
