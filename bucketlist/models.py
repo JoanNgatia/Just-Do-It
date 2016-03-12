@@ -24,7 +24,7 @@ class Base(models.Model):
         """Extend parent meta class."""
 
         abstract = True
-        ordering = ['updated_at']
+        ordering = ['-updated_at']
 
 
 class Bucketlist(Base):
