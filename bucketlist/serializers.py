@@ -43,7 +43,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
 
 class BucketlistitemSerializer(serializers.ModelSerializer):
-    """Define bucektlistitems serializer fields."""
+    """Define bucketlistitems serializer fields."""
 
     class Meta:
         model = Bucketlistitem
@@ -51,34 +51,15 @@ class BucketlistitemSerializer(serializers.ModelSerializer):
                   'created_at', 'updated_at')
         read_only_fields = ('created_at', 'updated_at')
 
-    def create(self, **validated_data):
-        return Bucketlistitem.objects.create(validated_data)
-
-    def update(self, instance, **validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.done = validated_data.get('done', instance.done)
-
-        instance.save()
-
-        return instance
-
 
 class BucketlistSerializer(serializers.ModelSerializer):
     """Define bucketlist fields that will be serialized."""
 
-    creator = serializers.ReadOnlyField(source='owner.username')
-    # items = BucketlistitemSerializer()
+    creator = serializers.ReadOnlyField(source='creator.username')
+    items = BucketlistitemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Bucketlist
-        fields = ('id', 'name', 'creator', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'creator', 'created_at', 'updated_at', 'items')
 
         read_only_fields = ('created_at', 'updated_at')
-
-    def create(self, **validated_data):
-        return Bucketlist.objects.create(validated_data)
-
-    def update(self, instance, **validated_data):
-        instance.name = validated_data.get('name', instance.name)
-
-        return instance
