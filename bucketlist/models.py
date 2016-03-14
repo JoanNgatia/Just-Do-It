@@ -46,7 +46,7 @@ class Bucketlistitem(Base):
     """Extend and customize base bucektlistitem model."""
 
     done = models.BooleanField(default=False)
-    bucketlist = models.ForeignKey(Bucketlist)
+    bucketlist = models.ForeignKey(Bucketlist, related_name='items')
 
     class Meta(Base.Meta):
         """Extend parent meta class."""
