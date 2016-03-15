@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^bucketlists/(?P<pk>[0-9]+)/$', views.BucketlistDetail.as_view()),
     url(r'^bucketlists/(?P<pk>[0-9]+)/items/$',
         views.BucketlistItemView.as_view()),
-    url(r'^bucketlists/(?P<pk>[0-9]+)/items/(?P<pk_item>[0-9]+)/$',
+    url(r'^bucketlists/(?P<list_id>[0-9]+)/items/(?P<pk>[0-9]+)/$',
         views.BucketlistItemDetail.as_view()),
 ]
 
