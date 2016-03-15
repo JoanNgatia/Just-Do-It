@@ -11,14 +11,6 @@ from serializers import AccountSerializer, BucketlistSerializer, \
     BucketlistitemSerializer
 
 
-# @api_view(('GET',))
-# def api_root(request, format=None):
-#     return Response({
-#         'accounts': reverse('user-list', request=request, format=format),
-#         'bucketlists': reverse('bucketlist', request=request, format=format)
-#     })
-
-
 class AccountsList(generics.ListAPIView):
     """Use DRF viewset to define Account CRUD methods."""
 
@@ -76,7 +68,7 @@ class BucketListView(generics.ListCreateAPIView):
 class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id> path.
 
-    Allow for retrieval of one bucketlists, its edition and deletion.
+    Allow for retrieval of one bucketlist, its edition and deletion.
     """
 
     permission_classes = (
@@ -91,33 +83,24 @@ class BucketlistItemView(generics.ListCreateAPIView):
     Allow for bucketlist item creation.
     """
 
-    permission_classes = (
-        permissions.IsAuthenticated, IsOwnerOrReadOnly)
-    queryset = Bucketlistitem.objects.all()
     serializer_class = BucketlistitemSerializer
 
-    def perform_create(self, serializer):
-        """Create a bucketlist item with values passed in request."""
-        pk = self.kwargs.get('pk')
-        bucketlist = get_object_or_404(
-            Bucketlist, pk=pk, creator=self.request.user)
-        serializer.save(bucketlist=bucketlist, creator=self.request.user)
+    def get_queryset(self):
+        """Return specific bucketlist as per URL request."""
+        list_id = self.kwargs['pk']
+        return Bucketlistitem.objects.filter(bucketlist=list_id)
 
 
 class BucketlistItemDetail(generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items/<item_id>/path.
 
-    Allow for edition and deletion of a bucketlistitem."""
+    Allow for edition and deletion of a bucketlistitem.
+    """
 
-    # permission_classes = (
-        # permissions.IsAuthenticated, IsOwnerOrReadOnly)
-    queryset = Bucketlistitem.objects.all()
     serializer_class = BucketlistitemSerializer
 
-    def get_bucketlistitem(self):
-        """Retrieve specific bucektlistitem from request body."""
-        pk = self.kwargs.get('pk')
-        pk_item = self.kwargs.get('pk_item')
-        bucketlistitem = get_object_or_404(
-            Bucketlistitem, bucketlist=pk, pk=pk_item)
+    def get_queryset(self):
+        """Return specific bucketlistitem as per url request."""
+        list_id = self.kwargs['list_id']
+        bucketlistitem = Bucketlistitem.objects.filter(bucketlist=list_id)
         return bucketlistitem
