@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -88,6 +89,10 @@ DATABASES = {
     }
 }
 
+# Alter database to Cover regular testing and django-coverage
+if 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -138,8 +143,8 @@ REST_FRAMEWORK = {
 }
 
 # REST_FRAMEWORK = {
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
+# Use Django's standard `django.contrib.auth` permissions,
+# or allow read-only access for unauthenticated users.
 #     'DEFAULT_PERMISSION_CLASSES': [
 #         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
 #     ],
@@ -150,9 +155,9 @@ REST_FRAMEWORK = {
 #     'DEFAULT_RENDERER_CLASSES': (
 #         'rest_framework.renderers.JSONRenderer',
 #     ),
-#     # 'DEFAULT_PAGINATION_CLASS':
-#     #     'rest_framework.pagination.PageNumberPagination',
-#     # 'PAGE_SIZE': 3
+# 'DEFAULT_PAGINATION_CLASS':
+# 'rest_framework.pagination.PageNumberPagination',
+# 'PAGE_SIZE': 3
 # }
 
 
