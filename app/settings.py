@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bucketlist',
     'rest_framework',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -131,7 +132,33 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'bucketlist.Account'
 
-# pagination class
-REST_FRAMEWORK = {
-    'PAGE_SIZE': 10
+# # pagination class
+# REST_FRAMEWORK = {
+#     'PAGE_SIZE': 3
+# }
+
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ],
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#     ),
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'rest_framework.renderers.JSONRenderer',
+#     ),
+#     # 'DEFAULT_PAGINATION_CLASS':
+#     #     'rest_framework.pagination.PageNumberPagination',
+#     # 'PAGE_SIZE': 3
+# }
+
+
+SWAGGER_SETTINGS = {
+    'api_path': '/',
+    'is_authenticated': True,
+    'is_superuser': True,
+    'permission_denied_handler': 'django.contrib.auth.views.login',
 }
