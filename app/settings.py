@@ -132,10 +132,10 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'bucketlist.Account'
 
-# # pagination class
-# REST_FRAMEWORK = {
-#     'PAGE_SIZE': 3
-# }
+# pagination class
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 5
+}
 
 # REST_FRAMEWORK = {
 #     # Use Django's standard `django.contrib.auth` permissions,
