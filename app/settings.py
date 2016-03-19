@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bucketlist',
+    # third-party apps
     'rest_framework',
     'rest_framework_swagger',
+    'rest_framework.authtoken',
+    # internal apps
+    'bucketlist',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -137,28 +140,29 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'bucketlist.Account'
 
-# pagination class
-REST_FRAMEWORK = {
-    'PAGE_SIZE': 5
-}
-
+# # pagination class
 # REST_FRAMEWORK = {
-# Use Django's standard `django.contrib.auth` permissions,
-# or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ],
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#     ),
-#     'DEFAULT_RENDERER_CLASSES': (
-#         'rest_framework.renderers.JSONRenderer',
-#     ),
-# 'DEFAULT_PAGINATION_CLASS':
-# 'rest_framework.pagination.PageNumberPagination',
-# 'PAGE_SIZE': 3
+#     'PAGE_SIZE': 5
 # }
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework.renderers.JSONRenderer',
+    # ),
+    # 'DEFAULT_PAGINATION_CLASS':
+    # 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 5
+}
 
 
 SWAGGER_SETTINGS = {
@@ -167,3 +171,5 @@ SWAGGER_SETTINGS = {
     'is_superuser': True,
     'permission_denied_handler': 'django.contrib.auth.views.login',
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
