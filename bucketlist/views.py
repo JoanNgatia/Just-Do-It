@@ -70,7 +70,6 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     Allow for retrieval of all bucektlists and bucketlist creation.
     """
 
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
     search_fields = ('name', )
@@ -86,8 +85,6 @@ class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
     Allow for retrieval of one bucketlist, its edition and deletion.
     """
 
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
 
