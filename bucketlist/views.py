@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework import generics, permissions, status, authentication, filters
+from rest_framework import generics, permissions, status, authentication, \
+    filters
 from rest_framework.response import Response
 from models import Account, Bucketlist, Bucketlistitem
-from permissions import IsOwnerOrReadOnly
 from serializers import AccountSerializer, BucketlistSerializer, \
     BucketlistitemSerializer
 
@@ -41,10 +41,10 @@ class AccountsList(generics.ListAPIView):
         if self.request.method == 'POST':
             return (permissions.AllowAny(), )
 
-        return(permissions.IsAuthenticated(), IsOwnerOrReadOnly(), )
+        return(permissions.IsAuthenticated(), )
 
     def create(self, request):
-        """Override viesets .save method to allow for passwor hashing."""
+        """Override viewsets .save method to allow for password hashing."""
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
@@ -60,6 +60,8 @@ class AccountsList(generics.ListAPIView):
 
 
 class AccountsDetail(generics.RetrieveAPIView):
+    """Allow admin access to user details."""
+
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
@@ -67,7 +69,7 @@ class AccountsDetail(generics.RetrieveAPIView):
 class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     """Handle /api/v1/bucketlists/ path.
 
-    Allow for retrieval of all bucektlists and bucketlist creation.
+    Allow for retrieval of all bucketlists and bucketlist creation.
     """
 
     queryset = Bucketlist.objects.all()
@@ -77,6 +79,7 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     def perform_create(self, serializer):
         """Associate bucketlist to an account,save data passed in request."""
         serializer.save(creator=self.request.user)
+        # serializer.save(user=self.request.user)
 
 
 class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
@@ -104,7 +107,8 @@ class BucketlistItemView(DefaultsMixin, generics.ListCreateAPIView):
         return Bucketlistitem.objects.filter(bucketlist=list_id)
 
 
-class BucketlistItemDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
+class BucketlistItemDetail(DefaultsMixin,
+                           generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items/<item_id>/path.
 
     Allow for edition and deletion of a bucketlistitem.
