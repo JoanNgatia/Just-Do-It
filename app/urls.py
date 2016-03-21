@@ -17,20 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from rest_framework.authtoken import views
-from rest_framework_nested import routers
-# from bucketlist.views import AccountViewSet
-from app.views import IndexView
-
-router = routers.SimpleRouter()
-# router.register(r'accounts', AccountViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/', include(router.urls)),
-    # url(r'^.*$', IndexView.as_view(), name='index'),
-    url(r'^', include('bucketlist.urls'), name='bucketlist'),
+    url(r'^api/', include('bucketlist.urls'), name='bucketlist'),
     url(r'^api/auth/',
         include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
-    url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^api/token/', views.obtain_auth_token),
 ]
