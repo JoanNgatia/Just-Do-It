@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bucketlist',
+    # third-party apps
     'rest_framework',
+    'rest_framework_swagger',
+    'rest_framework.authtoken',
+    # internal apps
+    'bucketlist',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -87,6 +92,10 @@ DATABASES = {
     }
 }
 
+# Alter database to Cover regular testing and django-coverage
+if 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -131,7 +140,28 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'bucketlist.Account'
 
-# pagination class
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 10
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5
 }
+
+
+SWAGGER_SETTINGS = {
+    'api_path': '/',
+    'is_authenticated': True,
+    'is_superuser': True,
+    'permission_denied_handler': 'django.contrib.auth.views.login',
+}
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
