@@ -1,14 +1,28 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, authentication, \
+    filters
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
 from models import Account, Bucketlist, Bucketlistitem
-from permissions import IsOwnerOrReadOnly
 from serializers import AccountSerializer, BucketlistSerializer, \
     BucketlistitemSerializer
+
+
+class DefaultsMixin(object):
+    """Default reusable settings for authentication,
+    permissions and filtering.
+    """
+
+    authentication_classes = (
+        authentication.BasicAuthentication,
+        authentication.TokenAuthentication,
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    filter_backends = (
+        filters.DjangoFilterBackend,
+        filters.SearchFilter,
+    )
 
 
 class AccountsList(generics.ListAPIView):
@@ -27,10 +41,10 @@ class AccountsList(generics.ListAPIView):
         if self.request.method == 'POST':
             return (permissions.AllowAny(), )
 
-        return(permissions.IsAuthenticated(), IsOwnerOrReadOnly(), )
+        return(permissions.IsAuthenticated(), )
 
     def create(self, request):
-        """Override viesets .save method to allow for passwor hashing."""
+        """Override viewsets .save method to allow for password hashing."""
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
@@ -46,44 +60,45 @@ class AccountsList(generics.ListAPIView):
 
 
 class AccountsDetail(generics.RetrieveAPIView):
+    """Allow admin access to user details."""
+
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
 
-class BucketListView(generics.ListCreateAPIView):
+class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     """Handle /api/v1/bucketlists/ path.
 
-    Allow for retrieval of all bucektlists and bucketlist creation.
+    Allow for retrieval of all bucketlists and bucketlist creation.
     """
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
+    search_fields = ('name', )
 
     def perform_create(self, serializer):
         """Associate bucketlist to an account,save data passed in request."""
         serializer.save(creator=self.request.user)
 
 
-class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
+class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id> path.
 
     Allow for retrieval of one bucketlist, its edition and deletion.
     """
 
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
 
 
-class BucketlistItemView(generics.ListCreateAPIView):
+class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items path.
 
     Allow for bucketlist item creation.
     """
 
     serializer_class = BucketlistitemSerializer
+    search_fields = ('name', )
 
     def get_queryset(self):
         """Return specific bucketlist as per URL request."""
@@ -91,7 +106,8 @@ class BucketlistItemView(generics.ListCreateAPIView):
         return Bucketlistitem.objects.filter(bucketlist=list_id)
 
 
-class BucketlistItemDetail(generics.RetrieveUpdateDestroyAPIView):
+class BucketlistItemDetail(DefaultsMixin,
+                           generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items/<item_id>/path.
 
     Allow for edition and deletion of a bucketlistitem.
