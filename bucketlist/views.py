@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework import generics, permissions, status, authentication
+from rest_framework import generics, permissions, status, authentication, filters
 from rest_framework.response import Response
 from models import Account, Bucketlist, Bucketlistitem
 from permissions import IsOwnerOrReadOnly
@@ -18,6 +18,10 @@ class DefaultsMixin(object):
     )
     permission_classes = (
         permissions.IsAuthenticated,
+    )
+    filter_backends = (
+        filters.DjangoFilterBackend,
+        filters.SearchFilter,
     )
 
 
@@ -69,13 +73,14 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
+    search_fields = ('name', )
 
     def perform_create(self, serializer):
         """Associate bucketlist to an account,save data passed in request."""
         serializer.save(creator=self.request.user)
 
 
-class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
+class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id> path.
 
     Allow for retrieval of one bucketlist, its edition and deletion.
@@ -87,13 +92,14 @@ class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BucketlistSerializer
 
 
-class BucketlistItemView(generics.ListCreateAPIView):
+class BucketlistItemView(DefaultsMixin, generics.ListCreateAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items path.
 
     Allow for bucketlist item creation.
     """
 
     serializer_class = BucketlistitemSerializer
+    search_fields = ('name', )
 
     def get_queryset(self):
         """Return specific bucketlist as per URL request."""
@@ -101,7 +107,7 @@ class BucketlistItemView(generics.ListCreateAPIView):
         return Bucketlistitem.objects.filter(bucketlist=list_id)
 
 
-class BucketlistItemDetail(generics.RetrieveUpdateDestroyAPIView):
+class BucketlistItemDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items/<item_id>/path.
 
     Allow for edition and deletion of a bucketlistitem.
