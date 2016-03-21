@@ -79,7 +79,6 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     def perform_create(self, serializer):
         """Associate bucketlist to an account,save data passed in request."""
         serializer.save(creator=self.request.user)
-        # serializer.save(user=self.request.user)
 
 
 class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
@@ -92,7 +91,7 @@ class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BucketlistSerializer
 
 
-class BucketlistItemView(DefaultsMixin, generics.ListCreateAPIView):
+class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
     """Handle /api/v1/bucketlists/<bucketlist_id>/items path.
 
     Allow for bucketlist item creation.
