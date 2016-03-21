@@ -13,6 +13,6 @@ after_success:
   - coveralls
 branches:
   only:
-  - chore-coderefactor
+  - feature-frontend
   - develop
   - master
