@@ -140,11 +140,6 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'bucketlist.Account'
 
-# # pagination class
-# REST_FRAMEWORK = {
-#     'PAGE_SIZE': 5
-# }
-
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -156,12 +151,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     'rest_framework.renderers.JSONRenderer',
-    # ),
-    # 'DEFAULT_PAGINATION_CLASS':
-    # 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE': 5
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5
 }
 
 
