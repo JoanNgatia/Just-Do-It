@@ -1,14 +1,24 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, authentication
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
 from models import Account, Bucketlist, Bucketlistitem
 from permissions import IsOwnerOrReadOnly
 from serializers import AccountSerializer, BucketlistSerializer, \
     BucketlistitemSerializer
+
+
+class DefaultsMixin(object):
+    """Default reusable settings for authentication,
+    permissions and filtering.
+    """
+
+    authentication_classes = (
+        authentication.BasicAuthentication,
+        authentication.TokenAuthentication,
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
 
 
 class AccountsList(generics.ListAPIView):
@@ -50,13 +60,13 @@ class AccountsDetail(generics.RetrieveAPIView):
     serializer_class = AccountSerializer
 
 
-class BucketListView(generics.ListCreateAPIView):
+class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     """Handle /api/v1/bucketlists/ path.
 
     Allow for retrieval of all bucektlists and bucketlist creation.
     """
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
 
