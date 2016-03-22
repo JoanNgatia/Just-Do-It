@@ -3,20 +3,44 @@
 <html>
 <head>
     <title>Just-Do-It</title>
+
+    <!-- google fonts -->
     <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Material Design Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- bootstrap core css -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    {# <link rel="stylesheet" href="{% static 'css/bucketlist.css' %}"> #}
+
+    <!-- inhouse design -->
+    <link rel="stylesheet" href="{% static 'css/bucketlist.css' %}">
+
 </head>
 <body>
-    <div class="page-header">
-        <h1><a href="/">Just-Do-It !</a></h1>
-    </div>
-
-    <div class="content">
-        <h1><a href="">We could go to Rio</a></h1>
-        <p>Rio Things!!</p>
-    </div>
-
+    <main>
+        <div class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="intro-message">
+                            <h1>Just-Do-It!</h1>
+                            <h3>Well, Shia LaBeouf would just say just do it!</h3>
+                            <div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-lg" id="myBtn">Login</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-lg" id="myBtn">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
 </body>
 </html>
