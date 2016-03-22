@@ -42,8 +42,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'rest_framework.authtoken',
+    'django_nose',
     # internal apps
     'bucketlist',
+]
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=bucketlist',
 ]
 
 MIDDLEWARE_CLASSES = [
