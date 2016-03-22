@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from models import Account, Bucketlist, Bucketlistitem
 from serializers import AccountSerializer, BucketlistSerializer, \
     BucketlistitemSerializer
+from rest_framework.renderers import TemplateHTMLRenderer, \
+    JSONRenderer
 
 
 class DefaultsMixin(object):
@@ -75,6 +77,8 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
     search_fields = ('name', )
+    renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
+    template_name = 'bucketlists/bucketlists.html'
 
     def perform_create(self, serializer):
         """Associate bucketlist to an account,save data passed in request."""
