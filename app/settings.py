@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_nose',
     # internal apps
     'bucketlist',
+    'apiv1',
 ]
 
 # Use nose to run all tests
@@ -53,7 +54,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=bucketlist',
+    # '--cover-package=bucketlist, apiv1',
 ]
 
 MIDDLEWARE_CLASSES = [
