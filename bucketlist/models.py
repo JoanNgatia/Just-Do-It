@@ -30,7 +30,7 @@ class Base(models.Model):
 class Bucketlist(Base):
     """Extend and customize base model."""
 
-    creator = models.ForeignKey(Account)
+    creator = models.ForeignKey(Account, related_name='bucketlists')
 
     class Meta(Base.Meta):
         """Extend parent meta class."""
