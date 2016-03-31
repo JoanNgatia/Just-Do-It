@@ -22,4 +22,5 @@ def index(request):
 @login_required
 def bucket_list(request):
     bucketlists = Bucketlist.objects.all()
-    return render(request, 'bucketlists/bucketlists.html', {'bucketlists': bucketlists})
+    return render(request, 'bucketlists/bucketlists.html',
+                  {'bucketlists': bucketlists})
