@@ -18,10 +18,11 @@
 <body>
     <div class="page-header">
         {% if user.is_authenticated %}
-        <p> Hey {{user.username}}</p>
+        <p class="top-menu"> Hey {{user.username}}</p>
         {% else %}
-        <p> LogIn </p>
+        <p class="top-menu"> LogIn </p>
         {% endif %}
+        <h1>Just Do It !</h1>
     </div>
     <div class="content">
         {% block content%}

@@ -9,7 +9,7 @@ h1 {
 
 body {
     padding-left: 15px;
-    background-image: url(../img/lists.jpeg);
+    /*background-image: url(../img/lists.jpeg);*/
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -24,6 +24,13 @@ body {
 
 button {
     text-align: center;
+}
+
+.top-menu{
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 200px;
 }
 
 /*login form*/
