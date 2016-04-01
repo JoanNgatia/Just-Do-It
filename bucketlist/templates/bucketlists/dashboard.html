@@ -32,6 +32,18 @@
                     </fieldset>
                 </form>
             </div>
+            <!-- Login form -->
+            <div class="login-form">
+                <form class="form-horizontal" action="/register" method="post">
+                    <fieldset>
+                        {% csrf_token %}
+                        {{ loginform|as_bootstrap }}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Login</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
 </div>
