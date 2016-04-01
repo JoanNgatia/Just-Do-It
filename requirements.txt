@@ -3,6 +3,7 @@ coverage==4.0.3
 decorator==4.0.9
 Django==1.9.3
 django-filter==0.13.0
+django-forms-bootstrap==3.0.1
 django-nose==1.4.3
 django-rest-swagger==0.3.5
 djangorestframework==3.3.3
