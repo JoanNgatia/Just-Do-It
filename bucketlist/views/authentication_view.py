@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.template import RequestContext
 # from bucketlist.forms.form_authentication import LoginForm, RegistrationForm
 
-from bucketlist.forms import RegistrationForm
+from bucketlist.forms import RegistrationForm, LoginForm
 
 
 class IndexView(TemplateView):
@@ -18,6 +18,7 @@ class IndexView(TemplateView):
         """Return dictionary representing passed in context."""
         context = super(IndexView, self).get_context_data(**kwargs)
         context['registrationform'] = RegistrationForm()
+        context['loginform'] = LoginForm()
         return context
 
 
@@ -48,3 +49,37 @@ class RegistrationView(IndexView):
                 '/register',
                 context_instance=RequestContext(request)
             )
+
+
+class LoginView(IndexView):
+    """Define login on index template view."""
+
+    form_class = LoginForm
+
+    def post(self, request, **kwargs):
+        """Method to login a registered user."""
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    messages.success(
+                        request, 'Welcome Back!!')
+                    return redirect(
+                        '/bucketlist',
+                        context_instance=RequestContext(request)
+                    )
+            else:
+                messages.error(
+                    request, 'Incorrect username or password!')
+                return redirect(
+                    '/login',
+                    context_instance=RequestContext(request)
+                )
+        else:
+            context = super(LoginView, self).get_context_data(**kwargs)
+            context['loginform'] = form
+            return render(request, self.template_name, context)
