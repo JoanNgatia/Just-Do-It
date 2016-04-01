@@ -41,3 +41,16 @@ class RegistrationForm(forms.Form):
             password=self.cleaned_data['password']
         )
         return new_user
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs=dict({
+        'placeholder': 'Enter unique username',
+        'autocomplete': 'off'
+    })))
+    password = forms.CharField(
+        label='Password', max_length=100,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': '**********'
+            }))
