@@ -1,20 +1,8 @@
-{% extends 'bucketlists/base.html' %}
-{% load bootstrap_tags %}
-
-{% block content%}
-
+{% extends 'bucketlists/base.html' %} {% load bootstrap_tags %} {% block content%}
 <div class="container">
-    <div class="row">
-        <div class="col-sm-7">
-            <i id="logo" class="mdi mdi-clipboard-text"></i>
-            <h1 id="title">Just-Do-It!</h1>
-            <p>Be smart</p>
-            <p>Be like Shia LaBeouf</p>
-        </div>
-
-        <div class="col-sm-5">
-            <!-- Registration form -->
-            <div class="panel panel-login">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
@@ -41,7 +29,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <!--form id="register-form" action="/register" method="post" role="form" style="display: block;">
+                                <form id="register-form" action="/register" method="post" role="form" style="display: block;">
                                     <fieldset>
                                         {% csrf_token %}
                                         {{ registrationform|as_bootstrap }}
@@ -53,12 +41,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form-->
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+<!--/ Login-->
+{% endblock%}

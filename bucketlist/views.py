@@ -1,9 +1,11 @@
 """Handle main django template views."""
-from django.shortcuts import render
-# from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-# from django.http import HttpResponseRedirect
-from models import Bucketlist
+from django.http import HttpResponseRedirect
+from django.views.decorators.csrf import csrf_protect
+from django.template import RequestContext
+from models import Bucketlist, Account
+from forms import RegistrationForm
 
 
 def index(request):
@@ -11,16 +13,17 @@ def index(request):
     return render(request, 'bucketlists/dashboard.html')
 
 
-# @login_required
-# def bucketlists(request, bucketid):
-#     """Bucketlist Manipulation"""
-#     data = {}
-#     data['bucketid'] = bucketid
-#     return render(request, 'bucketlists.html', data)
-
-
 @login_required
-def bucket_list(request):
+def all_bucketlists_view(request):
+    """Render all bucketlists on page."""
     bucketlists = Bucketlist.objects.all()
     return render(request, 'bucketlists/bucketlists.html',
                   {'bucketlists': bucketlists})
+
+
+@login_required
+def single_bucketlist_view(request, pk):
+    """Render single bucketlist detail."""
+    bucketlist = get_object_or_404(Bucketlist, pk=pk)
+    return render(request, 'bucketlist/bucketlists.html',
+                  {'bucketlist': bucketlist})
