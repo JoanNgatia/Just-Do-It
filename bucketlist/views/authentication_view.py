@@ -1,18 +1,18 @@
-"""Define django view for auhtentication and dashboard info."""
+"""Define django view for authentication and dashboard info."""
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.template import RequestContext
-# from bucketlist.forms.form_authentication import LoginForm, RegistrationForm
 
-from bucketlist.forms import RegistrationForm, LoginForm
+from bucketlist.forms.forms_authentication import RegistrationForm, LoginForm
 
 
 class IndexView(TemplateView):
     """Base view where they will all inherit data from."""
 
     template_name = 'bucketlists/dashboard.html'
+    # template_name = 'bucketlists/trial.html'
 
     def get_context_data(self, **kwargs):
         """Return dictionary representing passed in context."""
