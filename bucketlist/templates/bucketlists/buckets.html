@@ -1,4 +1,5 @@
 {% extends 'bucketlists/base.html' %}
+{% load bootstrap_tags %}
 
 {% block content %}
     {% for bucketlist in buckets %}
@@ -6,4 +7,13 @@
             <p>{{ bucketlist.name }}</p>
         </div>
     {% endfor %}
+    <div class="bucketlistform">
+        <form role="form" action="/bucketlists" method="post">
+            <fieldset>
+                {% csrf_token %}
+                {{ bucketlistform|as_bootstrap }}
+                <button type="submit" class="btn btn-primary">Create</button>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
