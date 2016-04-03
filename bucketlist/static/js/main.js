@@ -1,14 +1,9 @@
-$(function() {
+var main = function() {
 
-    $('#registration-link').on ("click", function(e){
-        e.preventDefault();
-        $('.registrationform').show();
-        $('.loginform').hide();
+    $('button').click(function(){
+        $('#myModal').modal('show');
     });
 
-    $('#login-link').on ("click", function(e){
-        e.preventDefault();
-        $('.registrationform').hide();
-        $('.loginform').show();
-    });
-});
+}
+
+$(document).ready(main);
