@@ -13,15 +13,15 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <!-- inhouse design -->
     <link rel="stylesheet" href="{% static 'css/bucketlist.css' %}">
-    <script src="static/js/main.js"></script>
 </head>
 <body>
-    <div class="page-header">
-        <h1>Just Do It !</h1>
-    </div>
     <div class="content">
         {% block content%}
         {% endblock %}
     </div>
+    <!--Javascript tags-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="static/js/main.js"></script>
 </body>
 </html>

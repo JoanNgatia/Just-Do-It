@@ -1,35 +1,72 @@
 {% extends 'bucketlists/base.html' %}
 {% load bootstrap_tags %}
 {% block content%}
-
 <div class="container">
-    <div class="panel with-nav-tabs panel-primary">
-        <div class="panel-heading">
-            <h2>Login</h2>
+    <div class="col-xs-12 text-center abcen1">
+        <h1 class="h1_home wow fadeIn animated animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s;">Just-Do-It!</h1>
+        <h3 class="h3_home wow fadeIn animated animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s;">Be like Shia LaBeouf</h3>
+        
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success btn-lg" >Login</button>
+        <button type="button" class="btn btn-warning btn-lg" >Register</button>
+
+        <!-- Login Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Login</h4>
+              </div>
+              <div class="modal-body">
+                <div class="loginform"
+                    <form role="form" action="/login" method="post">
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ loginform|as_bootstrap }}
+                        </fieldset>
+                    </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">Login</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="panel-body">
-            <div class="loginform"
-                <form role="form" action="/login" method="post">
-                    <fieldset>
-                        {% csrf_token %}
-                        {{ loginform|as_bootstrap }}
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </fieldset>
-                </form>
-                <a href="register" id="register-link">Don't have an account?</a>
+        <!--Register Modal-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Register</h4>
+              </div>
+              <div class="modal-body">
+                <div class="loginform"
+                    <form role="form" action="/register" method="post">
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ registrationform|as_bootstrap }}
+                        </fieldset>
+                    </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">Register</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
             </div>
-            <!--div class="registrationform">
-                <form role="form" class="registrationform" action="/register" method="post">
-                    <fieldset>
-                        {% csrf_token %}
-                        {{ registrationform|as_bootstrap }}
-                    </fieldset>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </form>
-                <a href="login" id="login-link">Already have an account</a>
-            </div-->
+          </div>
         </div>
+
     </div>
 </div>
+
 {% endblock %}
