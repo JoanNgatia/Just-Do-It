@@ -19,8 +19,9 @@ body {
     font-size: 15px;
     font-weight: normal;
     line-height: 1.4;
-    border-radius: 4px;
+    border-radius: 0px !important;
     padding: 10px 15px;
+    margin-top: 30px;
 }
 
 .container {
@@ -45,4 +46,46 @@ label {
     color: green;
     margin: 0;
     line-height: 1.42857143;
+}
+
+/*Bucketlist view styling*/
+
+h4.title {
+  text-align: center;
+}
+
+.thumbnail {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a.btn.btn-md {
+    margin-top: 100px;
+    margin-left: 10px;
+    margin-right: 100px;
+}
+.row.content {height: 1500px}
+
+.sidenav {
+  background-color: #f1f1f1;
+  height: 300px;
+  padding: auto;
+}
+
+.card {
+    width: 500px;
+    height: 200px;
+}
+
+h5, h6 {
+    font-family: cursive;
+    text-align: center;
+    font-weight: 400;
+    font-size: 24px;
+    margin-top: 50px;
+}
+
+a.btn-small {
+    margin-left: 100px;
 }
