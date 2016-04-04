@@ -12,7 +12,6 @@ class IndexView(TemplateView):
     """Base view where they will all inherit data from."""
 
     template_name = 'bucketlists/dashboard.html'
-    # template_name = 'bucketlists/trial.html'
 
     def get_context_data(self, **kwargs):
         """Return dictionary representing passed in context."""
@@ -71,7 +70,7 @@ class LoginView(IndexView):
                     messages.success(
                         request, 'Welcome Back!!')
                     return redirect(
-                        '/bucketlist',
+                        '/bucketlists',
                         context_instance=RequestContext(request)
                     )
             else:
