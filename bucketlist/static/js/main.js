@@ -1,7 +1,11 @@
 var main = function() {
 
-    $('button').click(function(){
-        $('#myModal').modal('show');
+    $('#login').click(function(){
+        $('#loginModal').modal('show');
+    });
+
+    $('#register').click(function(){
+        $('#registerModal').modal('show');
     });
 
 }

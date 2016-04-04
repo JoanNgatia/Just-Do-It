@@ -29,8 +29,10 @@ class RegistrationView(IndexView):
 
     def post(self, request, **kwargs):
         """Method to create a new user."""
+        # Check that method is post to access data passed
         form = self.form_class(request.POST)
         if form.is_valid():
+            # save data passed into the database
             new_user = form.save()
             new_user = authenticate(
                 username=request.POST['username'],
@@ -39,7 +41,7 @@ class RegistrationView(IndexView):
             messages.success(
                 request, 'Registration successful!!')
             return redirect(
-                '/bucketlist',
+                '/bucketlists',
                 context_instance=RequestContext(request)
             )
         else:
