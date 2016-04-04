@@ -8,6 +8,10 @@ var main = function() {
         $('#registerModal').modal('show');
     });
 
+    $('#all_bucketlists').click(function(){
+        $('#newbucketModal').modal('show');
+    });
+
 }
 
 $(document).ready(main);
