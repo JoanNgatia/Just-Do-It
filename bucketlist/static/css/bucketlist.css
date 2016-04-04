@@ -12,7 +12,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+/*end of main static styling*/
 
 /*Main authentication page styling*/
 .btn {
@@ -47,6 +47,7 @@ label {
     margin: 0;
     line-height: 1.42857143;
 }
+/*end of dashboard page styling*/
 
 /*Bucketlist view styling*/
 
@@ -71,6 +72,7 @@ a.btn.btn-md {
   background-color: #f1f1f1;
   height: 300px;
   padding: auto;
+  margin-top: 30px;
 }
 
 .card {
@@ -88,4 +90,9 @@ h5, h6 {
 
 a.btn-small {
     margin-left: 100px;
+}
+
+.panel-heading {
+    margin-top: 30px;
+    margin-bottom: auto;
 }
