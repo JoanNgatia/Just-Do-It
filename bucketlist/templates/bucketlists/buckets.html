@@ -5,14 +5,26 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
+      <i class="glyphicon glyphicon-user"></i>
       <h4>Hey {{user.username}}</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="#section1">My bucketlists</a></li>
+        <li class="list-group-item"><a href="/bucketlists/">My Bucketlists</a></li>
       </ul><br>
     </div>
-
     <div class="col-sm-9">
+        <div class="panel panel-default">
+          <div class="panel-heading c-list">
+            <span class="title">Create a new Bucketlist</span>
+            <ul class="pull-right">
+              <button type="button" class="btn btn-raised btn-success btn-lg" id="all_bucketlists">Another one!</button>
+            </ul>
+          </div>
+        </div>
+        <!-- view all bucketlists -->
         <div class="card-columns">
+          {% if not buckets %}
+            <div class="empty-list">No bucketlists yet!</div>
+          {% endif %}
             {% for bucketlist in buckets %}
                     <!--Image Card-->
                 <div class="card card-block hoverable">
@@ -31,10 +43,36 @@
                     <!--Image Card-->
             {% endfor %}
         </div>
+        <!--Create a new bucketlist-->
+        <div class="modal fade" id="newbucketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">New Bucketlist</h4>
+              </div>
+              <div class="modal-body">
+                <div class="bucketlistform">
+                    <form role="form" action="/bucketlists/" method="post">
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ bucketlistform|as_bootstrap }}
+                            <div class="form-group">
+                             <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>
-
-    
-
 {% endblock %}
