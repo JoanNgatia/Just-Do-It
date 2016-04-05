@@ -12,9 +12,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-/*end of main static styling*/
 
-/*Main authentication page styling*/
 .btn {
     font-size: 15px;
     font-weight: normal;
@@ -47,9 +45,6 @@ label {
     margin: 0;
     line-height: 1.42857143;
 }
-/*end of dashboard page styling*/
-
-/*Bucketlist view styling*/
 
 h4.title {
   text-align: center;
