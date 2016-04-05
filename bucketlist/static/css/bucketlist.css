@@ -1,14 +1,20 @@
 /*Static styling*/
-h1, .h1 {
-    font-size: 52px;
+h1, h5, .h1 {
+    font-size: 80px;
     font-family: cursive;
     margin-top: 200px;
-    color: #de9595;
+    color: #1B1744;
+}
+
+h5 {
+    font-size: 80px;
+    font-family: cursive;
+    color: #1B1744;
 }
 
 body {
     padding-left: 15px;
-    background: url(../img/skies.jpg) no-repeat center center fixed;
+    /*background: url(../img/enjoying-life.jpg) no-repeat center center fixed;*/
     background-repeat: no-repeat;
     background-size: cover;
 }
