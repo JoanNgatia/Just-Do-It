@@ -34,7 +34,7 @@
                     <!--Buttons-->
                     <div class="card-btn text-center">
                          <a data-action="/bucketlists/{{ bucketlist.id }}/" href="#editbucketmodal" data-toggle="modal" data-placement="top" class="edit-link pull-right"><span class="glyphicon glyphicon-pencil text-muted c-info" data-toggle="tooltip" title="Edit"></span></a>
-                        <a class="btn btn-default" href="{% url 'single_bucketlist' pk=bucketlist.pk%}"><span class="glyphicon glyphicon-remove"></span></a>
+                         <a class="btn btn-default" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"><span class="glyphicon glyphicon-remove"></span></a>       
                     </div>
                     <!--/.Buttons-->
                 </div>
