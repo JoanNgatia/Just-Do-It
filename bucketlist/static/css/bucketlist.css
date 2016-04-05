@@ -18,7 +18,9 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+/*End of static styling*/
 
+/*Dashboard specific styling*/
 .btn {
     font-size: 15px;
     font-weight: normal;
@@ -51,7 +53,9 @@ label {
     margin: 0;
     line-height: 1.42857143;
 }
+/*End of dashboard styling*/
 
+/*All bucketlists view styling*/
 h4.title {
   text-align: center;
 }
@@ -81,6 +85,14 @@ a.btn.btn-md {
     height: 200px;
 }
 
+.card .card-content {
+    position: absolute;
+    top: 15px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 h5, h6 {
     font-family: cursive;
     text-align: center;
@@ -93,7 +105,19 @@ a.btn-small {
     margin-left: 100px;
 }
 
+.btn-success:not(.btn-link):not(.btn-flat) {
+    margin-top: 0px;
+    background-color: #4caf50;
+    color: rgba(255,255,255,.84);
+}
+
 .panel-heading {
     margin-top: 30px;
     margin-bottom: auto;
 }
+
+.fa {
+    margin-top: 80px;
+    display: inline-block;
+}
+/*End of all bucketlists view*/
