@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^login$', authentication_view.LoginView.as_view(), name="login"),
     url(r'^bucketlists/$', bucketlist_view.AllBucketlistsView.as_view(),
         name="all_bucketlists"),
-    url(r'^bucketlists/(?P<pk>[0-9]+)/$',
+    url(r'^bucketlists/(?P<pk>[0-9]+)/edit/$',
         bucketlist_view.BucketlistDetailView.as_view(),
         name="single_bucketlist"),
 ]
