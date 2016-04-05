@@ -54,3 +54,17 @@ class AllBucketlistsView(LoginRequiredMixin, TemplateView):
                 '/bucketlist',
                 context_instance=RequestContext(request)
             )
+
+
+class BucketlistDetailView(LoginRequiredMixin, TemplateView):
+    """View to handle retrieval, edition and deletion of single bucketlists."""
+
+    def post(self, request, **kwargs):
+        """Retrieve new details from request body."""
+        bucketlist = Bucketlist.objects.filter(
+            id=kwargs['pk'], creator=self.request.user)
+        bucketlist.name = request.POST.get('name')
+        bucketlist.save()
+
+        return redirect('/bucketlists/',
+                        context_instance=RequestContext(request))
