@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from django.contrib.auth import authenticate, login
+# from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.template import RequestContext
 
@@ -8,7 +10,16 @@ from bucketlist.models import Bucketlist
 from bucketlist.forms.forms_bucketlist import BucketListForm
 
 
-class AllBucketlistsView(TemplateView):
+class LoginRequiredMixin(object):
+    """Enforce login for particular views."""
+
+    @method_decorator(login_required(login_url='/'))
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(
+            request, *args, **kwargs)
+
+
+class AllBucketlistsView(LoginRequiredMixin, TemplateView):
     """View to handle retrieval and creation of bucketlists."""
 
     template_name = 'bucketlists/buckets.html'
@@ -27,13 +38,13 @@ class AllBucketlistsView(TemplateView):
         """Method to create a new bucketlist."""
         form = self.form_class(request.POST)
         if form.is_valid():
-            new_bucket = form.save()
+            new_bucket = form.save(commit=False)
             new_bucket.creator = self.request.user
             new_bucket.save()
             messages.success(
                 request, 'New Bucketlist added successfully!')
             return redirect(
-                '/bucketlist',
+                '/bucketlists',
                 context_instance=RequestContext(request)
             )
         else:
