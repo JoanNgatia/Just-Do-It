@@ -57,7 +57,7 @@ class AllBucketlistsView(LoginRequiredMixin, TemplateView):
 
 
 class BucketlistDetailView(LoginRequiredMixin, TemplateView):
-    """View to handle retrieval, edition and deletion of single bucketlists."""
+    """View to handle retrieval and edition of single bucketlists."""
 
     def post(self, request, **kwargs):
         """Retrieve new details from request body."""
@@ -65,6 +65,19 @@ class BucketlistDetailView(LoginRequiredMixin, TemplateView):
             id=kwargs['pk'], creator=self.request.user)
         bucketlist.name = request.POST.get('name')
         bucketlist.save()
+
+        return redirect('/bucketlists/',
+                        context_instance=RequestContext(request))
+
+
+class BucketlistDeleteView(LoginRequiredMixin, TemplateView):
+    """View to handle deletion of a bucketlist."""
+
+    def post(self, request, **kwargs):
+        """Retrieve bucketlist id from request body and delete it."""
+        bucketlist = Bucketlist.objects.filter(
+            id=kwargs['pk'], creator=self.request.user)
+        bucketlist.delete()
 
         return redirect('/bucketlists/',
                         context_instance=RequestContext(request))
