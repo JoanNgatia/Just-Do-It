@@ -1,131 +1,106 @@
 {% extends 'bucketlists/base.html' %}
 {% load bootstrap_tags %}
+{% block navbar %}
+<nav class="navbar navbar-fixed-top z-depth-1" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand waves-effect waves-light" href="/bucketlists">Just-Do-It!</a>
+    </div>
+  </div>
+</nav>
+{% endblock%}
 
 {% block content %}
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
-      <i class="glyphicon glyphicon-user"></i>
-      <h4>Hey {{user.username}}</h4>
+    <div class="profile">
+        <i class="fa fa-user fa-5x"></i> 
+        <h4>Hey {{user.username}}</h4>
+      </div>
       <ul class="nav nav-pills nav-stacked">
         <li class="list-group-item"><a href="/bucketlists/">My Bucketlists</a></li>
+        <li class="list-group-item" id="all_bucketlists"><a href="#">Create a new bucketlist</a></li>
       </ul><br>
     </div>
     <div class="col-sm-9">
-        <div class="panel panel-default">
-          <div class="panel-heading c-list">
-            <span class="title">Create a new Bucketlist</span>
-            <ul class="pull-right">
-              <button type="button" class="btn btn-raised btn-success btn-lg" id="all_bucketlists">Another one!</button>
-            </ul>
-          </div>
-        </div>
-        <!-- view all bucketlists -->
-        <div class="card-columns">
-          {% if not buckets %}
-            <div class="empty-list">No bucketlists yet!</div>
-          {% endif %}
-            {% for bucketlist in buckets %}
-                    <!--Image Card-->
-                <div class="card card-block hoverable">
-                    <div class="card-content text-center">
-                        <h5>{{ bucketlist.name }}</h5> 
-                    </div>
-                    <!--Buttons-->
-                    <div class="card-btn text-center">
-                         <a data-action="/bucketlists/{{id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link pull-right"><span class="glyphicon glyphicon-pencil text-muted c-info" data-toggle="tooltip" title="Edit"></span></a>
-                         <a class="btn btn-default" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"><span class="glyphicon glyphicon-remove"></span></a>       
-                    </div>
-                    <!--/.Buttons-->
-                </div>
-                    <!--Image Card-->
-                    <div id="modal{{bucketlist.id}}" class="modal fade" role="dialog">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Bucketlist</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="bucketlistform">
-                              <form role="form" action="/bucketlists/{{bucketlist.id}}/edit/" method="post">
-                                <fieldset>
-                                  {% csrf_token %} 
-                                  <input type="text" name="name" value="{{ bucketlist.name }}">
-                                  <input type="submit" value="Edit" class="btn btn-primary">
-                                </fieldset>
-                              </form>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      <!-- view all bucketlists -->
+      <div class="card-columns">
+        {% if not buckets %}
+        <div class="empty-list">No bucketlists yet!</div>
+        {% endif %}
+        {% for bucketlist in buckets %}
+        <div class="col-md-4">
+          <div class="card card-block view overlay hm-blue-light">
+            <div class="card-content text-center">
+              <h5>{{ bucketlist.name }}</h5> 
+            </div>
+            <div class="mask">
+              <div class="verticalcenter">
+                <div class="white-text text-center">
+                <a data-action="/bucketlists/{{id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link"><i class="fa fa-pencil fa-lg"></i></a>
+                 <a class="" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"><i class="fa fa-trash fa-lg"></i></a>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+                  <!-- Edit existing bucketlist modal -->
+                  <div id="modal{{bucketlist.id}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Edit Bucketlist</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="bucketlistform">
+                            <form role="form" action="/bucketlists/{{bucketlist.id}}/edit/" method="post">
+                              <fieldset>
+                                {% csrf_token %} 
+                                <input type="text" name="name" value="{{ bucketlist.name }}">
+                                <input type="submit" value="Edit" class="btn btn-primary">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                              </fieldset>
+                            </form>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-            {% endfor %}
-        </div>
-        <!--Create a new bucketlist-->
-        <div class="modal fade" id="newbucketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">New Bucketlist</h4>
-              </div>
-              <div class="modal-body">
-                <div class="bucketlistform">
-                    <form role="form" action="/bucketlists/" method="post">
-                        <fieldset>
-                            {% csrf_token %}
-                            {{ bucketlistform|as_bootstrap }}
-                            <div class="form-group">
-                             <button type="submit" class="btn btn-primary" value="Add">Add</button>
-                            </div>
-                        </fieldset>
-                    </form>
+                  {% endfor %}
+                </div>
+                <!--Create a new bucketlist-->
+                <div class="modal fade" id="newbucketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">New Bucketlist</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="bucketlistform">
+                          <form role="form" action="/bucketlists/" method="post">
+                            <fieldset>
+                              {% csrf_token %}
+                              {{ bucketlistform|as_bootstrap }}
+                              <div class="form-group">
+                               <button type="submit" class="btn btn-primary" value="Add">Add</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                             </div>
+                           </fieldset>
+                         </form>
+                       </div>
+                     </div>
+                  </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Edit existing bucketlist
-        <div id="editbucketmodal" class="modal fade" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Edit Bucketlist {{id}}</h4>
-              </div>
-              <div class="modal-body">
-                <div class="bucketlistform">
-                    <form role="form" action="/bucketlists/{{id}}/edit/" method="post">
-                        <fieldset>
-                            {% csrf_token %}
-                            {{ bucketlistform|as_bootstrap }}
-                            <input type="submit" value="Edit" class="btn btn-primary">
-                        </fieldset>
-                    </form>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
+      </div>
     </div>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}
