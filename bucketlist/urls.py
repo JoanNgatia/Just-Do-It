@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from bucketlist.views import authentication_view, bucketlist_view
+from bucketlist.views import authentication_view, bucketlist_view, \
+    bucketlistitem_view
 
 urlpatterns = [
     url(r'^$', authentication_view.IndexView.as_view(), name='index'),
@@ -15,6 +16,9 @@ urlpatterns = [
     url(r'^bucketlists/(?P<pk>[0-9]+)/delete/$',
         bucketlist_view.BucketlistDeleteView.as_view(),
         name="single_bucketlist_delete"),
+    url(r'^bucketlists/(?P<pk>[0-9]+)/items/$',
+        bucketlistitem_view.AllBucketlistitemsView.as_view(),
+        name="bucketlistitems_get"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
