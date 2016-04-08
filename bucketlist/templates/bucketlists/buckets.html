@@ -15,7 +15,7 @@
   <div class="row content">
     <div class="col-sm-3 sidenav">
       <div class="profile">
-        <i class="fa fa-user fa-5x"></i> 
+        <i class="fa fa-user fa-5x"></i>
         <h4>Hey {{user.username}}</h4>
       </div>
       <ul class="nav nav-pills nav-stacked">
@@ -33,16 +33,16 @@
         <div class="col-md-4">
           <div class="card card-block view overlay hm-blue-light">
             <div class="card-content text-center">
-              <h5>{{ bucketlist.name }}</h5> 
+              <h4><a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}">{{ bucketlist.name }}</a></h4>
             </div>
-            <div class="mask">
+            <!--<div class="mask">
               <div class="verticalcenter">
                 <div class="white-text text-center">
                   <a data-action="/bucketlists/{{id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link"><i class="fa fa-pencil fa-lg"></i></a>
                   <a class="" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
         <!-- Edit existing bucketlist modal -->
@@ -59,7 +59,7 @@
                 <div class="bucketlistform">
                   <form role="form" action="/bucketlists/{{bucketlist.id}}/edit/" method="post">
                     <fieldset>
-                      {% csrf_token %} 
+                      {% csrf_token %}
                       <input type="text" name="name" value="{{ bucketlist.name }}">
                       <input type="submit" value="Edit" class="btn btn-primary">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
