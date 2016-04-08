@@ -55,8 +55,11 @@ label {
 /*End of dashboard styling*/
 
 /*All bucketlists view styling*/
-h4.title {
+h4 {
   text-align: center;
+  color: #222;
+  font-family: Monospace;
+  font-size: 18px;
 }
 
 .thumbnail {
@@ -104,13 +107,6 @@ a.btn.btn-md {
     right: 0;
 }
 
-h5, h6 {
-    font-family: cursive;
-    text-align: center;
-    font-weight: 400;
-    font-size: 24px;
-    margin-top: 50px;
-}
 
 a.btn-small {
     margin-left: 100px;
@@ -124,4 +120,5 @@ a.btn-small {
 .navbar {
     height: 50px;
 }
+
 /*End of all bucketlists view*/
