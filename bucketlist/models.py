@@ -43,7 +43,7 @@ class Bucketlist(Base):
 
 
 class Bucketlistitem(Base):
-    """Extend and customize base bucektlistitem model."""
+    """Extend and customize base model for bucketlistitems."""
 
     done = models.BooleanField(default=False)
     bucketlist = models.ForeignKey(Bucketlist, related_name='items')
