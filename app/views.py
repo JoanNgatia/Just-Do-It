@@ -8,4 +8,5 @@ class IndexView(TemplateView):
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
+        """Add csrf protection to all decorated class views."""
         return super(IndexView, self).dispatch(*args, **kwargs)

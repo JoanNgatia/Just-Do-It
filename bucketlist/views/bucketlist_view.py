@@ -15,6 +15,7 @@ class LoginRequiredMixin(object):
 
     @method_decorator(login_required(login_url='/'))
     def dispatch(self, request, *args, **kwargs):
+        """Add login required functionality to all decorated class views."""
         return super(LoginRequiredMixin, self).dispatch(
             request, *args, **kwargs)
 
