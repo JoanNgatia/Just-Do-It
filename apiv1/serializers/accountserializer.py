@@ -31,8 +31,8 @@ class AccountSerializer(serializers.ModelSerializer):
         """Deserialize json and update user details."""
         instance.tagline = validated_data.get('tagline', instance.tagline)
 
-        password = validated_data.get('password', None)
-        confirm_password = validated_data.get('confirm_password', None)
+        password = validated_data.get('password')
+        confirm_password = validated_data.get('confirm_password')
 
         # incase of password update check that both fields have been filled
         if password and confirm_password and password == confirm_password:
