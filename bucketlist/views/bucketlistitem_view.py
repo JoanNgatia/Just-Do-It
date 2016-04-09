@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -46,13 +46,43 @@ class AllBucketlistitemsView(LoginRequiredMixin, TemplateView):
             messages.success(
                 request, 'New Bucketlistitem added successfully!')
             return redirect(
-                '/bucketlists',
+                '/bucketlists/',
                 context_instance=RequestContext(request)
             )
         else:
             messages.error(
                 request, 'Error at creation!')
             return redirect(
-                '/bucketlist',
+                '/bucketlists/',
                 context_instance=RequestContext(request)
             )
+
+
+class BucketlistitemUpdate(LoginRequiredMixin, TemplateView):
+    """View logic to handle bucketlistitem name edition and marking as done."""
+
+    def post(self, request, **kwargs):
+        """Retrieve new details from request body."""
+        bucketlist = kwargs['bucketlist']
+        bucketlistitem = Bucketlistitem.objects.filter(
+            id=kwargs['pk'], bucketlist_id=bucketlist).first()
+        bucketlistitem.name = request.POST.get('name')
+        bucketlistitem.done = False if bucketlistitem.done else True
+        bucketlistitem.save()
+
+        return redirect('/bucketlists/',
+                        context_instance=RequestContext(request))
+
+
+class BucketlistitemDelete(LoginRequiredMixin, TemplateView):
+    """View logic to handle bucketlistitem deletion."""
+
+    def get(self, request, **kwargs):
+        """Retrieve bucketlist id from request body and delete it."""
+        bucketlist = kwargs['bucketlist']
+        bucketlistitem = Bucketlistitem.objects.filter(
+            id=kwargs['pk'], bucketlist_id=bucketlist).first()
+        bucketlistitem.delete()
+
+        return redirect('/bucketlists/',
+                        context_instance=RequestContext(request))
