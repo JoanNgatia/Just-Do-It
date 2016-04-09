@@ -15,14 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
 from rest_framework.authtoken import views
 
 urlpatterns = [
+    # main django admin site
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/', include('bucketlist.urls'), name='bucketlist'),
+    # django frontend
+    url(r'^', include('bucketlist.urls')),
+    # api endpoint access
+    url(r'^api/v1/', include('apiv1.urls')),
     url(r'^api/auth/',
         include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/token/',
+        views.obtain_auth_token, name='token'),
+    # api documentation on swagger
     url(r'^docs/', include('rest_framework_swagger.urls')),
-    url(r'^api/token/', views.obtain_auth_token, name='token'),
 ]

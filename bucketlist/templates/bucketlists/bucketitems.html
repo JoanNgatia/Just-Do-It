@@ -1,0 +1,93 @@
+{% extends 'bucketlists/base.html' %}
+{% load bootstrap_tags %}
+{% block navbar %}
+<nav class="navbar navbar-fixed-top z-depth-1" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand waves-effect waves-light" href="/bucketlists">Just-Do-It!</a>
+  </div>
+</div>
+</nav>
+{% endblock%}
+{% block content%}
+<div>
+    <div class="col-sm-3 sidenav">
+      <div class="profile">
+        <i class="fa fa-user fa-5x"></i>
+        <h4>Hey {{user.username}}</h4>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="list-group-item"><a href="/bucketlists/">My Bucketlists</a></li>
+        </ul><br>
+    </div>
+    <div class="col-md-9">
+        <div class="col-md-12 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading c-list">
+                    <span class="title">{{ bucketlist.name }}</span>
+
+                    <div class="todolist not-done">
+                        <form role="form" action="/bucketlists/{{bucketlist.id}}/items/" method="post">
+
+                            {% csrf_token %}
+                            <div class="item-input">
+
+                                {{ bucketlistform|as_bootstrap }}
+
+                                <input type="submit" value="Add" class="btn btn-primary">
+
+                            </div>
+
+                        </form>
+                        <hr>
+                        {% if bucketitems %}
+                        <ul id="sortable" class="list-unstyled">
+                            {% for item in bucketitems %}
+                            <li class="ui-state-default">
+                                <div class="checkbox">
+                                    <a href="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/edit/" title="Mark as done" class="item-checkbox"><input type="checkbox" {% if item.done %}checked{% endif %}></a>
+                                    <h6>{{ item.name }}</h6>
+                                    <!--Delete bucketlistitem icon -->
+                                    <a class="" href="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/delete/"><i class="fa fa-trash fa-lg"></i></a>
+                                    <!--Edit bucketlistitem icon-->
+                                    <a data-action="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/edit/" href="#modal{{item.id}}" data-toggle="modal" data-placement="top" class="edit-link"><i class="fa fa-pencil fa-lg"></i></a>
+                                    <!--Edit bucketlist item modal-->
+                                    <div id="modal{{item.id}}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Edit Bucketlist item</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="bucketlistform">
+                                                  <form role="form" action="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/edit/" method="post">
+                                                    <fieldset>
+                                                      {% csrf_token %}
+                                                      <input type="text" name="name" value="{{ item.name }}">
+                                                      <input type="submit" value="Edit" class="btn btn-primary">
+                                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                    </fieldset>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        {% else %}
+                        <div>No item currently in {{ bucketlist.name }}</div>
+                        {% endif %}
+                        </ul>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

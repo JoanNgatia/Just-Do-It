@@ -42,8 +42,20 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'rest_framework.authtoken',
+    'django_nose',
+    'django_forms_bootstrap',
     # internal apps
     'bucketlist',
+    'apiv1',
+]
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    # '--cover-package=bucketlist, apiv1',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -62,7 +74,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,12 +144,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 
 
 # Default user creation to Account model
-
 AUTH_USER_MODEL = 'bucketlist.Account'
 
 REST_FRAMEWORK = {
@@ -150,6 +162,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+    ),
+    "DEFAULT_RENDERER_CLASSES": (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.TemplateHTMLRenderer',
     ),
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
@@ -165,3 +182,5 @@ SWAGGER_SETTINGS = {
 }
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+APPEND_SLASH = True
