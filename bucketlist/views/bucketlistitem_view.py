@@ -34,23 +34,22 @@ class AllBucketlistitemsView(LoginRequiredMixin, TemplateView):
         context['bucketlistform'] = BucketlistItemForm()
         return context
 
-    # def post(self, request, **kwargs):
-    #     """Method to create a new bucketlist."""
-    #     form = self.form_class(request.POST)
-    #     if form.is_valid():
-    #         new_bucketitem = form.save(commit=False)
-    #         new_bucketitem.creator = self.request.user
-    #         new_bucketitem.save()
-    #         messages.success(
-    #             request, 'New Bucketlist added successfully!')
-    #         return redirect(
-    #             '/bucketlists',
-    #             context_instance=RequestContext(request)
-    #         )
-    #     else:
-    #         messages.error(
-    #             request, 'Error at creation!')
-    #         return redirect(
-    #             '/bucketlist',
-    #             context_instance=RequestContext(request)
-    #         )
+    def post(self, request, **kwargs):
+        """Method to create a new bucketlist."""
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            new_bucketitem = form.save(commit=False)
+            new_bucketitem.save()
+            messages.success(
+                request, 'New Bucketlist added successfully!')
+            # return redirect(
+            #     '/bucketlists',
+            #     context_instance=RequestContext(request)
+            # )
+        else:
+            messages.error(
+                request, 'Error at creation!')
+            # return redirect(
+            #     '/bucketlist',
+            #     context_instance=RequestContext(request)
+            # )
