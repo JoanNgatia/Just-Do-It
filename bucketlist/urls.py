@@ -19,6 +19,12 @@ urlpatterns = [
     url(r'^bucketlists/(?P<pk>[0-9]+)/items/$',
         bucketlistitem_view.AllBucketlistitemsView.as_view(),
         name="bucketlistitems_get"),
+    url(r'^bucketlists/(?P<bucketlist>[0-9]+)/items/(?P<pk>[0-9]+)/edit/$',
+        bucketlistitem_view.BucketlistitemUpdate.as_view(),
+        name="bucketlistitems_update"),
+    url(r'^bucketlists/(?P<bucketlist>[0-9]+)/items/(?P<pk>[0-9]+)/delete/$',
+        bucketlistitem_view.BucketlistitemDelete.as_view(),
+        name="bucketlistitems_delete"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
