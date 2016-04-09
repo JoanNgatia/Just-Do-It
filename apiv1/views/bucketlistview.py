@@ -1,10 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework import generics, permissions, status, authentication, \
+from rest_framework import generics, permissions, authentication, \
     filters
-from rest_framework.response import Response
-from bucketlist.models import Account, Bucketlist, Bucketlistitem
-from apiv1.serializers import AccountSerializer, BucketlistSerializer, \
-    BucketlistitemSerializer
+from bucketlist.models import Bucketlist, Bucketlistitem
+from apiv1.serializers import bucketlistserializer
 
 
 class DefaultsMixin(object):
@@ -25,47 +22,6 @@ class DefaultsMixin(object):
     )
 
 
-class AccountsList(generics.ListAPIView):
-    """Use DRF viewset to define Account CRUD methods."""
-
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
-
-    def get_permissions(self):
-        """Set access permissions to Account model."""
-        # allow only account owner to update or delete an account.
-        if self.request.method in permissions.SAFE_METHODS:
-            return (permissions.AllowAny(), )
-
-        # allow any user to create an account.
-        if self.request.method == 'POST':
-            return (permissions.AllowAny(), )
-
-        return(permissions.IsAuthenticated(), )
-
-    def create(self, request):
-        """Override viewsets .save method to allow for password hashing."""
-        serializer = self.serializer_class(data=request.data)
-
-        if serializer.is_valid():
-            Account.objects.create_user(**serializer.validated_data)
-
-            return Response(serializer.validated_data,
-                            status=status.HTTP_201_CREATED)
-
-        return Response({
-            'status': 'Bad Request',
-            'message': 'Account could not be created with given details.'
-        }, status=status.HTTP_400_BAD_REQUEST)
-
-
-class AccountsDetail(generics.RetrieveAPIView):
-    """Allow admin access to user details."""
-
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
-
-
 class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     """Handle /api/v1/bucketlists/ path.
 
@@ -73,7 +29,7 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
     """
 
     queryset = Bucketlist.objects.all()
-    serializer_class = BucketlistSerializer
+    serializer_class = bucketlistserializer.BucketlistSerializer
     search_fields = ('name', )
 
     def perform_create(self, serializer):
@@ -88,7 +44,7 @@ class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
     """
 
     queryset = Bucketlist.objects.all()
-    serializer_class = BucketlistSerializer
+    serializer_class = bucketlistserializer.BucketlistSerializer
 
 
 class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
@@ -97,7 +53,7 @@ class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
     Allow for bucketlist item creation.
     """
 
-    serializer_class = BucketlistitemSerializer
+    serializer_class = bucketlistserializer.BucketlistitemSerializer
     search_fields = ('name', )
 
     def get_queryset(self):
@@ -113,7 +69,7 @@ class BucketlistItemDetail(DefaultsMixin,
     Allow for edition and deletion of a bucketlistitem.
     """
 
-    serializer_class = BucketlistitemSerializer
+    serializer_class = bucketlistserializer.BucketlistitemSerializer
 
     def get_queryset(self):
         """Return specific bucketlistitem as per url request."""
