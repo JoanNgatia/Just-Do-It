@@ -1,3 +1,5 @@
+"""This file defines the api endpoints for the bucketlist and items info."""
+
 from rest_framework import generics, permissions, authentication, \
     filters
 from bucketlist.models import Bucketlist, Bucketlistitem
@@ -23,9 +25,15 @@ class DefaultsMixin(object):
 
 
 class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
-    """Handle /api/v1/bucketlists/ path.
+    """Handle the URL to list all bucketlists and create one.
 
-    Allow for retrieval of all bucketlists and bucketlist creation.
+    URL : /api/v1/bucketlists
+    Args:
+        To create a bucketlist:
+            name - name of the bucketlist.
+    Returns:
+        POST/GET -- Dictionary containing bucketlist details inclusive of
+                name,items contained, dates created or updated and the creator
     """
 
     queryset = Bucketlist.objects.all()
@@ -38,9 +46,17 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
 
 
 class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
-    """Handle /api/v1/bucketlists/<bucketlist_id> path.
+    """Allow for retrieval of one bucketlist, its edition and deletion.
 
-    Allow for retrieval of one bucketlist, its edition and deletion.
+    URL : /api/v1/bucketlists/<list_id>
+    Args:
+        pk = list_id
+        To update a bucketlist:
+            name -  new name of the bucketlist.
+    Returns:
+        PUT/GET -- Dictionary containing bucketlist details inclusive of
+                name,items contained, dates created or updated and the creator
+        DELETE -- 204 status code
     """
 
     queryset = Bucketlist.objects.all()
@@ -48,9 +64,16 @@ class BucketlistDetail(DefaultsMixin, generics.RetrieveUpdateDestroyAPIView):
 
 
 class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
-    """Handle /api/v1/bucketlists/<bucketlist_id>/items path.
+    """Allow for bucketlist item creation.
 
-    Allow for bucketlist item creation.
+    URL : /api/v1/bucketlists/<list_id>/items/
+    Args:
+        pk = list_id
+        To create a bucketlist item:
+            name - name of the item.
+    Returns:
+        POST -- Dictionary containing the items details inclusive of
+                name, status(done/not done) and dates created or updated.
     """
 
     serializer_class = bucketlistserializer.BucketlistitemSerializer
@@ -64,9 +87,18 @@ class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
 
 class BucketlistItemDetail(DefaultsMixin,
                            generics.RetrieveUpdateDestroyAPIView):
-    """Handle /api/v1/bucketlists/<bucketlist_id>/items/<item_id>/path.
+    """Allow for bucketlist item retreival, edition and deletion.
 
-    Allow for edition and deletion of a bucketlistitem.
+    URL : /api/v1/bucketlists/<list_id>/items/<items_id>/
+    Args:
+        list_id = bucketlist_id
+        pk = item_id
+        To update a bucketlist item:
+            name - new name of the item.
+    Returns:
+        PUT/GET -- Dictionary containing bucketlist item  details inclusive of
+                name, status(done/not done) and dates created or updated.
+        DELETE -- 204 status code
     """
 
     serializer_class = bucketlistserializer.BucketlistitemSerializer

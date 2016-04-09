@@ -1,3 +1,5 @@
+"""This file defines api serializer methods to represent bucketlist details."""
+
 from rest_framework import serializers
 from bucketlist.models import Bucketlist, Bucketlistitem
 

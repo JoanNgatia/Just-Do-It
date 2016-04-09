@@ -1,12 +1,24 @@
-from django.shortcuts import render, get_object_or_404
+"""This file defines the api endpoints for the accounts/user info."""
+
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from bucketlist.models import Account
 from apiv1.serializers import accountserializer
 
 
-class AccountsList(generics.ListAPIView):
-    """Use DRF viewset to define Account CRUD methods."""
+class AccountsList(generics.ListCreateAPIView):
+    """Use DRF viewset to define Account CRUD methods.
+
+    Handle the URL to create and account and list all accounts.
+    URL : /api/v1/users/
+    Args:
+        To create a user:
+            required - username , password
+            optional - tagline
+    Returns:
+        Dictionary containing users' details inclusive of
+        username, tagline and bucketlists created.
+    """
 
     queryset = Account.objects.all()
     serializer_class = accountserializer.AccountSerializer
@@ -40,7 +52,16 @@ class AccountsList(generics.ListAPIView):
 
 
 class AccountsDetail(generics.RetrieveAPIView):
-    """Allow admin access to user details."""
+    """Allow admin access to user details.
+
+    Handle the URL to list a particular users details.
+    URL : /api/v1/user/<user_id>
+    Args:
+        pk -- the user id lookup field from the URL
+    Returns:
+        Dictionary containing a user's details inclusive of
+        username, tagline and bucketlists created.
+    """
 
     queryset = Account.objects.all()
     serializer_class = accountserializer.AccountSerializer
