@@ -27,9 +27,7 @@
                     <span class="title">{{ bucketlist.name }}</span>
 
                     <div class="todolist not-done">
-
-                        <form method="post" action="/bucketlists/{{bucketlist.id}}/items/">
-
+                        <form role="form" action="/bucketlists/{{bucketlist.id}}/items/" method="post">
 
                             {% csrf_token %}
                             <div class="item-input">
