@@ -1,7 +1,7 @@
 from django.contrib.auth import update_session_auth_hash
 
 from rest_framework import serializers
-from bucketlist.models import Account, Bucketlist, Bucketlistitem
+from bucketlist.models import Account, Bucketlist
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -40,26 +40,3 @@ class AccountSerializer(serializers.ModelSerializer):
         update_session_auth_hash(self.context.get('request'), instance)
 
         return instance
-
-
-class BucketlistitemSerializer(serializers.ModelSerializer):
-    """Define bucketlistitems serializer fields."""
-
-    class Meta:
-        model = Bucketlistitem
-        fields = ('id', 'name', 'done', 'bucketlist',
-                  'created_at', 'updated_at')
-        read_only_fields = ('id', 'created_at', 'updated_at')
-
-
-class BucketlistSerializer(serializers.ModelSerializer):
-    """Define bucketlist fields that will be serialized."""
-
-    creator = serializers.ReadOnlyField(source='creator.username')
-    items = BucketlistitemSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Bucketlist
-        fields = ('id', 'name', 'creator', 'created_at', 'updated_at', 'items')
-
-        read_only_fields = ('created_at', 'updated_at', 'items')
