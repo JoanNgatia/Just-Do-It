@@ -35,14 +35,14 @@
             <div class="card-content text-center">
               <h4><a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}">{{ bucketlist.name }}</a></h4>
             </div>
-            <!--<div class="mask">
+            <div class="mask">
               <div class="verticalcenter">
                 <div class="white-text text-center">
                   <a data-action="/bucketlists/{{id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link"><i class="fa fa-pencil fa-lg"></i></a>
                   <a class="" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
               </div>
-            </div>-->
+            </div>
           </div>
         </div>
         <!-- Edit existing bucketlist modal -->
