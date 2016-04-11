@@ -9,23 +9,27 @@ from bucketlist.models import Account, Bucketlist
 class AccountSerializer(serializers.ModelSerializer):
     """Define User serialization fields."""
 
-    # define that password can be changed only if need be
     password = serializers.CharField(write_only=True, required=False)
-    confirm_password = serializers.CharField(write_only=True, required=False)
-    bucketlists = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Bucketlist.objects.all())
 
     class Meta:
         """Define metadata the serializer should use."""
 
         model = Account
         fields = ('id', 'username', 'created_at', 'updated_at',
-                  'tagline', 'password', 'confirm_password', 'bucketlists')
+                  'tagline', 'password')
         read_only_fields = ('created_at', 'updated_at',)
 
     def create(self, **validated_data):
         """Deserialize json and create a new user."""
-        return Account.objects.create(validated_data)
+        user = Account(
+            username=validated_data['username'],
+            tagline=validated_data['tagline'])
+        if not validated_data['password'] or not validated_data['confirm_password']:
+            raise serializers.ValidationError("Please enter a password and "
+                                              "confirm it.")
+        else:
+            user.set_password(validated_data['password'])
+        return user
 
     def update(self, instance, **validated_data):
         """Deserialize json and update user details."""
