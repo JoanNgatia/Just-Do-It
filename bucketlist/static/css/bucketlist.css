@@ -1,8 +1,6 @@
 /*Static styling*/
-h1, h5, .h1 {
+h1 {
     font-size: 80px;
-    font-family: cursive;
-    margin-top: 200px;
     color: #DDD;
 }
 
