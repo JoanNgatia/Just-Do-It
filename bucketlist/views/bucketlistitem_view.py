@@ -33,7 +33,7 @@ class AllBucketlistitemsView(LoginRequiredMixin, TemplateView):
         context['bucketlist'] = Bucketlist.objects.get(id=bucketlist)
         context['bucketitems'] = Bucketlistitem.objects.filter(
             bucketlist_id=kwargs['pk'])
-        context['bucketlistform'] = BucketlistItemForm()
+        context['bucketlistitemform'] = BucketlistItemForm()
         return context
 
     def post(self, request, **kwargs):
