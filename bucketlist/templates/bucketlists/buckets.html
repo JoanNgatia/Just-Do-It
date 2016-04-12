@@ -28,6 +28,7 @@
       <div class="profile">
         <i class="fa fa-user fa-5x"></i>
         <h4>Hey {{user.username}}</h4>
+        <a href="{% url 'logout' %}" class="btn btn-info">Logout</a>
       </div>
       <ul class="nav nav-pills nav-stacked">
         <button class="accordion">My Bucketlists</button>
