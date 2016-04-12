@@ -30,6 +30,33 @@ class TestBucketlistView(TestCase):
         Account.objects.all().delete()
         Bucketlist.objects.all().delete()
 
+    def test_user_registration(self):
+        """Test that a new user can get registered on the system."""
+        response = self.client.post(reverse('register'),
+                                    {'username': 'test',
+                                    'password': 'test',
+                                     'confirm_password': 'test'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_user_login(self):
+        """Test that a registered user can login."""
+        response = self.client.post(reverse('login'),
+                                    {'username': 'test',
+                                    'password': 'test'})
+        self.assertEqual(response.status_code, 302)
+
+        # Test that a non-registered user cannot login
+        response = self.client.post(reverse('login'),
+                                    {'username': 'not test',
+                                    'password': 'test'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/login')
+
+    def test_user_logout(self):
+        """Test that a logged in user can logout."""
+        response = self.client.post(reverse('logout'))
+        self.assertEqual(response.status_code, 302)
+
     def test_can_access_bucketlists_view(self):
         """Test that a logged in user can access their bucketlists."""
         response = self.client.get(
@@ -38,10 +65,17 @@ class TestBucketlistView(TestCase):
 
     def test_access_to_bucketlist_creation(self):
         """Test that a user can create a bucketlist."""
+        # successful creation
         response = self.client.post(
             reverse('all_bucketlists'), {'name': 'Lets go to the zoo'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Bucketlist.objects.count(), 5)
+
+        # unsuccessful creation
+        response = self.client.post(
+            reverse('all_bucketlists'), {'name': ''})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/bucketlist')
 
     def test_access_to_bucketlist_update(self):
         """Test that a user can edit a bucketlist."""
@@ -72,6 +106,13 @@ class TestBucketlistView(TestCase):
         response = self.client.post(
             reverse('bucketlistitems_get', kwargs={'pk': self.bucketlist.id}),
             {'name': 'MAdtraxx!!'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Bucketlistitem.objects.count(), 6)
+
+        # unsuccessful item creation
+        response = self.client.post(
+            reverse('bucketlistitems_get', kwargs={'pk': self.bucketlist.id}),
+            {'name': ''})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Bucketlistitem.objects.count(), 6)
 
