@@ -12,16 +12,6 @@
 
 {% block content %}
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
-                    {{ message }}
-            </div>
-            {% endfor %}
-        {% endif %}
-    </div>
   </div>
   <div class="row content">
     <div class="col-sm-3 sidenav">
@@ -41,6 +31,16 @@
       </ul><br>
     </div>
     <div class="col-sm-9">
+      <div class="row">
+        <div class="col-sm-12">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
+                        {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
       <!-- view all bucketlists -->
       <div class="card-columns">
         {% if not buckets %}
