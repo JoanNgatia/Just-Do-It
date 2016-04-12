@@ -121,4 +121,7 @@ a.btn-small {
     height: 50px;
 }
 
+a.data-content {
+    font-size: 10px;
+}
 /*End of all bucketlists view*/

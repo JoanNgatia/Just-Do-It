@@ -12,6 +12,7 @@ var main = function() {
         $('#newbucketModal').modal('show');
     });
 
+    $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
 }
 
 $(document).ready(main);
