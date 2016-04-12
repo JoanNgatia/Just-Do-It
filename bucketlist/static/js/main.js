@@ -1,11 +1,11 @@
 // Using jQuery
-$.ajax({
-    type: "GET",
-    headers: {"Access-Control-Allow-Origin": "*"},
-    url: "http://localhost:8000/bucketlists/"
-}).done(function (data) {
-    console.log(data);
-});
+// $.ajax({
+//     type: "GET",
+//     headers: {"Access-Control-Allow-Origin": "*"},
+//     url: "http://localhost:8000/bucketlists/"
+// }).done(function (data) {
+//     console.log(data);
+// });
 
 var main = function() {
 
