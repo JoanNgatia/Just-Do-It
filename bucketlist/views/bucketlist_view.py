@@ -66,7 +66,8 @@ class BucketlistDetailView(LoginRequiredMixin, TemplateView):
             id=kwargs['pk'], creator=self.request.user).first()
         bucketlist.name = request.POST.get('name')
         bucketlist.save()
-
+        messages.success(
+            request, 'Bucketlist updated successfully!')
         return redirect('/bucketlists/',
                         context_instance=RequestContext(request))
 
@@ -79,6 +80,7 @@ class BucketlistDeleteView(LoginRequiredMixin, TemplateView):
         bucketlist = Bucketlist.objects.filter(
             id=kwargs['pk'], creator=self.request.user).first()
         bucketlist.delete()
-
+        messages.success(
+            request, 'Bucketlist has been deleted successfully!')
         return redirect('/bucketlists/',
                         context_instance=RequestContext(request))

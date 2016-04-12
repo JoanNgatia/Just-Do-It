@@ -11,6 +11,17 @@
 {% endblock%}
 {% block content%}
 <div>
+    <div class="row">
+        <div class="col-sm-12">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
+                        {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
     <div class="col-sm-3 sidenav">
       <div class="profile">
         <i class="fa fa-user fa-5x"></i>
@@ -22,7 +33,7 @@
     </div>
     <div class="col-md-9">
         <div class="col-md-12 col-sm-6">
-            <div class="panel panel-default">
+            <div class=" board panel-default">
                 <div class="panel-heading c-list">
                     <span class="title">{{ bucketlist.name }}</span>
 
@@ -34,7 +45,7 @@
 
                                 {{ bucketlistform|as_bootstrap }}
 
-                                <input type="submit" value="Add" class="btn btn-primary">
+                                <input type="submit" value="Add new item" class="btn btn-primary">
 
                             </div>
 

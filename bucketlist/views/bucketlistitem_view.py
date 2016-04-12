@@ -47,14 +47,14 @@ class AllBucketlistitemsView(LoginRequiredMixin, TemplateView):
             messages.success(
                 request, 'New Bucketlistitem added successfully!')
             return redirect(
-                '/bucketlists/',
+                '/bucketlists/' + kwargs['pk'] + '/items/',
                 context_instance=RequestContext(request)
             )
         else:
             messages.error(
                 request, 'Error at creation!')
             return redirect(
-                '/bucketlists/',
+                '/bucketlists/' + kwargs['pk'] + '/items/',
                 context_instance=RequestContext(request)
             )
 
@@ -70,8 +70,9 @@ class BucketlistitemUpdate(LoginRequiredMixin, TemplateView):
         bucketlistitem.name = request.POST.get('name')
         bucketlistitem.done = False if bucketlistitem.done else True
         bucketlistitem.save()
-
-        return redirect('/bucketlists/',
+        messages.success(
+            request, 'Bucketlistitem edited successfully!')
+        return redirect('/bucketlists/' + kwargs['bucketlist'] + '/items/',
                         context_instance=RequestContext(request))
 
 
@@ -84,6 +85,7 @@ class BucketlistitemDelete(LoginRequiredMixin, TemplateView):
         bucketlistitem = Bucketlistitem.objects.filter(
             id=kwargs['pk'], bucketlist_id=bucketlist).first()
         bucketlistitem.delete()
-
-        return redirect('/bucketlists/',
+        messages.success(
+            request, 'Bucketlistitem has been deleted!')
+        return redirect('/bucketlists/' + kwargs['bucketlist'] + '/items/',
                         context_instance=RequestContext(request))
