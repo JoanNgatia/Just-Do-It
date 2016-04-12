@@ -200,3 +200,6 @@ SWAGGER_SETTINGS = {
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 APPEND_SLASH = True
+
+# Specify redirect route after logout
+LOGOUT_REDIRECT_URL = '/'

@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^register$', authentication_view.RegistrationView.as_view(),
         name="register"),
     url(r'^login$', authentication_view.LoginView.as_view(), name="login"),
+    url(r'^logout/$', 'django.contrib.auth.views.logout',
+        {'next_page': '/'}, name="logout"),
     url(r'^bucketlists/$', bucketlist_view.AllBucketlistsView.as_view(),
         name="all_bucketlists"),
     url(r'^bucketlists/(?P<pk>[0-9]+)/edit/$',
