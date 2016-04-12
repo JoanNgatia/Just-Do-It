@@ -1,3 +1,12 @@
+// Using jQuery
+$.ajax({
+    type: "GET",
+    headers: {"Access-Control-Allow-Origin": "*"},
+    url: "http://localhost:8000/bucketlists/"
+}).done(function (data) {
+    console.log(data);
+});
+
 var main = function() {
 
     $('#login').click(function(){
@@ -14,7 +23,7 @@ var main = function() {
 
     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
 
-    $("#flash-message").fadeOut(3000);
+    $("#flash-message").fadeOut(7000);
 }
 
 $(document).ready(main);

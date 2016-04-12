@@ -25,6 +25,25 @@ body {
     opacity: 0.5;
 }
 
+#bg {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.5;
+}
+#bg img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+}
+
 .main {
     position: absolute;
     top: 0px;
@@ -82,8 +101,8 @@ a.btn.btn-md {
 
 .sidenav {
   background-color: #f1f1f1;
-  height: 300px;
   padding: auto;
+  top: 60px;
 }
 
 .profile {
@@ -119,6 +138,10 @@ a.btn-small {
 
 .navbar {
     height: 50px;
+    background-color: #009688;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 a.data-content {
@@ -127,6 +150,7 @@ a.data-content {
 
 .panel-default {
     background-color: #eee;
+    margin-top: 60px;
 }
 /*End of all bucketlists view*/
 
@@ -148,19 +172,32 @@ button.accordion.active, button.accordion:hover {
     background-color: #ddd;
 }
 
+button.accordion:after {
+    content: '\02795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2796";
+}
+
 /*Style the accordion panel. Note: hidden by default*/
 div.panel {
     padding: 0 18px;
     background-color: white;
     display: none;
+    transition: 0.6s ease-in-out;
 }
 
  /*The "show" class is added to the accordion panel when the user clicks on one of the buttons. This will show the panel content*/
 div.panel.show {
     display: block !important;
+    transition: 0.6s ease-in-out;
 }
 
-#flash-message {
-    margin-top: 10px;
-    background-color: white;
+#sortable {
+    padding-left: 20px;
 }
