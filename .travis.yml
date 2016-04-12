@@ -14,5 +14,6 @@ after_success:
 branches:
   only:
   - feature-frontend
+  - chore-coderefactor
   - develop
   - master
