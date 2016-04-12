@@ -38,8 +38,9 @@
             <div class="mask">
               <div class="verticalcenter">
                 <div class="white-text text-center">
-                  <a data-action="/bucketlists/{{id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link"><i class="fa fa-pencil fa-lg"></i></a>
-                  <a class="" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"><i class="fa fa-trash fa-lg"></i></a>
+                    <a data-action="/bucketlists/{{bucketlist.id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="tooltip" data-placement="top" class="edit-link" data-original-title="Edit bucketlist"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"
+                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete bucketlist"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
               </div>
             </div>
