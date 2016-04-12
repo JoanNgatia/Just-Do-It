@@ -1,7 +1,4 @@
 """This file defines api serializer methods to represent account/user info."""
-
-from django.contrib.auth import update_session_auth_hash
-
 from rest_framework import serializers
 from bucketlist.models import Account
 
@@ -9,40 +6,19 @@ from bucketlist.models import Account
 class AccountSerializer(serializers.ModelSerializer):
     """Define User serialization fields."""
 
-    password = serializers.CharField(write_only=True, required=False)
-
     class Meta:
         """Define metadata the serializer should use."""
 
         model = Account
-        fields = ('id', 'username', 'created_at', 'updated_at',
-                  'tagline', 'password')
-        read_only_fields = ('created_at', 'updated_at',)
+        fields = ('username', 'password', 'tagline')
+        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, **validated_data):
-        """Deserialize json and create a new user."""
+        """Override create method and set password."""
         user = Account(
             username=validated_data['username'],
-            tagline=validated_data['tagline'])
-        if not validated_data['password'] or not validated_data['confirm_password']:
-            raise serializers.ValidationError("Please enter a password and "
-                                              "confirm it.")
-        else:
-            user.set_password(validated_data['password'])
+            tagline=validated_data['tagline']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
         return user
-
-    def update(self, instance, **validated_data):
-        """Deserialize json and update user details."""
-        instance.tagline = validated_data.get('tagline', instance.tagline)
-
-        password = validated_data.get('password')
-        confirm_password = validated_data.get('confirm_password')
-
-        # incase of password update check that both fields have been filled
-        if password and confirm_password and password == confirm_password:
-            instance.set_password(password)
-            instance.save()
-        # save updated password to current session to avoid re-logging in
-        update_session_auth_hash(self.context.get('request'), instance)
-
-        return instance
