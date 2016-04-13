@@ -15,7 +15,7 @@ body {
 }
 
 .background {
-    background: url(../img/enjoying-life.jpg) no-repeat center center fixed;
+    background: url("../img/enjoying-life.9870f20ba0c6.jpg") no-repeat center center fixed;
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
