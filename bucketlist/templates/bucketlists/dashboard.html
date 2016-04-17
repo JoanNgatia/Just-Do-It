@@ -2,14 +2,26 @@
 {% load bootstrap_tags %}
 {% block content%}
 <div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
+                    {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+  </div>
   <div class="col-xs-12 text-center abcen1">
+  <div class="well">
     <h1 class="h1_home wow fadeIn animated animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s;">Just-Do-It!</h1>
-    <h5>Life's too short not to</h5>
+    <h5>Life's too short not to.</h5>
 
     <!-- Button trigger modal -->
     <div class="authenticate">
-      <button type="button" class="btn btn-raised btn-success btn-lg waves-effect waves-light" id="login">Login</button>
-      <button type="button" class="btn btn-raised btn-warning btn-lg waves-effect waves-light" id="register">Register</button>
+      <button type="button" class="btn btn-raised btn-success btn-md waves-effect waves-light" id="login">Login</button>
+      <button type="button" class="btn btn-raised btn-warning btn-md waves-effect waves-light" id="register">Register</button>
     </div>
 
     <!-- Login Modal -->
@@ -90,7 +102,7 @@
       </div>
     </div>
   </div>
-
+</div>
 </div>
 </div>
 

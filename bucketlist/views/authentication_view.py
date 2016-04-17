@@ -64,15 +64,14 @@ class LoginView(IndexView):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    messages.success(
-                        request, 'Welcome Back!!')
-                    return redirect(
-                        '/bucketlists',
-                        context_instance=RequestContext(request)
-                    )
+            if user is not None and user.is_active:
+                login(request, user)
+                messages.success(
+                    request, 'Welcome Back!!')
+                return redirect(
+                    '/bucketlists',
+                    context_instance=RequestContext(request)
+                )
             else:
                 messages.error(
                     request, 'Incorrect username or password!')
