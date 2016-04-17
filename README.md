@@ -38,3 +38,26 @@ The App itself is accessed by running ```localhost:8000/```
 ### API documentation
 Django Rest Framework API endpoints were documented using Swagger.
 This documentation can be accessed by running ```localhost:8000/docs```
+
+API endpoints include
+
+| Endpoint                                               | Functionality                                  |
+| -------------                                          |:-------------:                                 |
+| POST/apiv1/auth/login                                  | Login to app                                   |
+| POST/apiv1/auth/token                                  | Generate a token                               |
+| POST/apiv1/bucketlists/                                | Create a bucketlist                            |
+| PUT/apiv1/bucketlists/                                 | Edit a bucketlist                              |
+| DElETE/apiv1/bucketlists/                              | Delete a bucketlist                            |
+| GET/apiv1/bucketlists/                                 | Get all bucketlists                            |
+| GET/bucketlists/<list_id>                              | Get a specific bucketlist                      |
+| PUT/bucketlists/<list_id>                              | Update a specific bucketlist                   |
+| DELETE/bucketlists/<list_id>                           | Delete a specific bucketlist                   |
+| POST/bucketlists/<list_id>/items/                      | Add a new bucketlist item                      |
+| PUT/bucketlists/<list_id>/items/<item_id>              | Update a specific bucketlist  item             |
+| DELETe/bucketlists/<list_id>/items/<item_id>           | Delete a specific bucketlist  item             |
+
+
+###Icebox features
+- Twitter/ Facebook Social authentication :-)
+- Dynamic Progress bars on bucketlistitem status
+- Drag drop functionallity for achieved bucketlists
