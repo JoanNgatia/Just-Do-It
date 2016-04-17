@@ -101,6 +101,7 @@ a.btn.btn-md {
   background-color: #f1f1f1;
   padding: auto;
   top: 60px;
+  position: fixed;
 }
 
 .profile {
