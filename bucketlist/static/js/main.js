@@ -1,11 +1,11 @@
 // Using jQuery
-// $.ajax({
-//     type: "GET",
-//     headers: {"Access-Control-Allow-Origin": "*"},
-//     url: "http://localhost:8000/bucketlists/"
-// }).done(function (data) {
-//     console.log(data);
-// });
+$.ajax({
+    type: "GET",
+    headers: {"Access-Control-Allow-Origin": "*"},
+    url: "http://localhost:8000/bucketlists/"
+}).done(function (data) {
+    console.log(data);
+});
 
 var main = function() {
 
@@ -19,10 +19,6 @@ var main = function() {
 
     $('#all_bucketlists').click(function(){
         $('#newbucketModal').modal('show');
-    });
-
-    $('#delete_bucketlist').click(function(){
-        $('#deletebucketModal').modal('show');
     });
 
     $('#deleteBucket').click(function(){
