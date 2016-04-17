@@ -14,15 +14,6 @@ body {
     background-color: #000;
 }
 
-.background {
-    background: url(../img/enjoying-life.jpg) no-repeat center center fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-    max-width: 100vw;
-    opacity: 0.5;
-}
-
 #bg {
   position: fixed;
   top: -50%;
@@ -31,6 +22,7 @@ body {
   height: 200%;
   opacity: 0.5;
 }
+
 #bg img {
   position: absolute;
   top: 0;
@@ -68,6 +60,14 @@ label {
     color: green;
     margin: 0;
     line-height: 1.42857143;
+}
+
+.well {
+  margin-top: 150px;
+  width: 500px;
+  margin-left: 300px;
+  text-align: center;
+  background-color: grey;
 }
 /*End of dashboard styling*/
 
