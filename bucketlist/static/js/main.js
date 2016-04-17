@@ -21,6 +21,14 @@ var main = function() {
         $('#newbucketModal').modal('show');
     });
 
+    $('#delete_bucketlist').click(function(){
+        $('#deletebucketModal').modal('show');
+    });
+
+    $('#deleteBucket').click(function(){
+        $('#deleteBucketlistModal').modal('show');
+    });
+
     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
 
     $("#flash-message").fadeOut(7000);

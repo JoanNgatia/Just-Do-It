@@ -55,9 +55,13 @@
             <div class="mask">
               <div class="verticalcenter">
                 <div class="white-text text-center">
+                    <!--Edit bucketlist icon-->
                     <a data-action="/bucketlists/{{bucketlist.id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link" data-original-title="Edit bucketlist"><i class="fa fa-pencil fa-lg"></i></a>
-                    <a class="" href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}"
-                     data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete bucketlist"><i class="fa fa-trash fa-lg"></i></a>
+
+                    <!--Delete bucketlist icon -->
+                    <a href="#" data-toggle="tooltip" id="deleteBucket" data-placement="top" title="" data-original-title="Delete bucketlist"><i class="fa fa-trash fa-lg"></i></a>
+
+                    <!--View and Add items to bucketlist-->
                     <a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}"
                      data-toggle="tooltip" data-placement="top" title="" data-original-title="View bucket items"><i class="fa fa-eye fa-lg"></i></a>
                 </div>
@@ -91,6 +95,24 @@
           </div>
         </div>
 
+        <!--Delete bucketitem modal-->
+        <div class="modal fade" id="deleteBucketlistModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Delete bucketlist</h4>
+              </div>
+              <div class="modal-body">
+                <h6>Are you sure?</h6>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}" class="btn btn-danger modal-delete-btn">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
       <!--Create a new bucketlist-->
