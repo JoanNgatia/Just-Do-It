@@ -49,12 +49,12 @@ API endpoints include
 | PUT/apiv1/bucketlists/                                 | Edit a bucketlist                              |
 | DElETE/apiv1/bucketlists/                              | Delete a bucketlist                            |
 | GET/apiv1/bucketlists/                                 | Get all bucketlists                            |
-| GET/apiv1/bucketlists/<list_id>                              | Get a specific bucketlist                      |
-| PUT/apiv1/bucketlists/<list_id>                              | Update a specific bucketlist                   |
-| DELETE/apiv1/bucketlists/<list_id>                           | Delete a specific bucketlist                   |
-| POST/apiv1/bucketlists/<list_id>/items/                      | Add a new bucketlist item                      |
-| PUT/apiv1/bucketlists/<list_id>/items/<item_id>              | Update a specific bucketlist  item             |
-| DELETE/apiv1/bucketlists/<list_id>/items/<item_id>           | Delete a specific bucketlist  item             |
+| GET/apiv1/bucketlists/list_id                             | Get a specific bucketlist                      |
+| PUT/apiv1/bucketlists/list_id                            | Update a specific bucketlist                   |
+| DELETE/apiv1/bucketlists/list_id                       | Delete a specific bucketlist                   |
+| POST/apiv1/bucketlists/list_id/items/                      | Add a new bucketlist item                      |
+| PUT/apiv1/bucketlists/list_id/items/item_id              | Update a specific bucketlist  item             |
+| DELETE/apiv1/bucketlists/list_id/items/item_id          | Delete a specific bucketlist  item             |
 
 
 ###Icebox features
