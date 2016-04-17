@@ -41,6 +41,10 @@ body {
     padding: 0 20px;
 }
 
+.alert {
+  color: #000;
+}
+
 /*End of static styling*/
 
 /*Dashboard specific styling*/
