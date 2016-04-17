@@ -27,6 +27,7 @@ class BucketModelsTest(TestCase):
     def test_account_creation(self):
         """Test that accounts/users are created."""
         self.assertEqual(self.account.get_username(), 'test')
+        self.assertIsInstance(self.account, Account)
 
     def test_bucketlist_creation(self):
         """Test that bucketlists are created."""
@@ -34,6 +35,7 @@ class BucketModelsTest(TestCase):
         self.assertIn('test_bucketlist',
                       Bucketlist.objects.get(name='test_bucketlist').name)
         self.assertEqual(Bucketlist.objects.count(), 4)
+        self.assertIsInstance(self.bucketlist, Bucketlist)
 
     def test_bucketlistitem_creation(self):
         """Test that items are created."""
@@ -41,3 +43,4 @@ class BucketModelsTest(TestCase):
         self.assertIn('test_bucketitem', Bucketlistitem.objects.get(
             name='test_bucketitem').name)
         self.assertEqual(Bucketlistitem.objects.count(), 5)
+        self.assertIsInstance(self.bucketitem, Bucketlistitem)
