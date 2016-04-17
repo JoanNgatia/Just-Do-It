@@ -68,10 +68,31 @@ class BucketlistitemUpdate(LoginRequiredMixin, TemplateView):
         bucketlistitem = Bucketlistitem.objects.filter(
             id=kwargs['pk'], bucketlist_id=bucketlist).first()
         bucketlistitem.name = request.POST.get('name')
-        bucketlistitem.done = False if bucketlistitem.done else True
         bucketlistitem.save()
         messages.success(
             request, 'Bucketlistitem edited successfully!')
+        return redirect('/bucketlists/' + kwargs['bucketlist'] + '/items/',
+                        context_instance=RequestContext(request))
+
+
+class BucketlistItemStatus(LoginRequiredMixin, TemplateView):
+    """View logic for marking item as done or not."""
+
+    def get(self, request, **kwargs):
+        """Retrieve item id from url passed."""
+        bucketlistitem_id = kwargs['pk']
+        bucketlistitem = Bucketlistitem.objects.get(id=bucketlistitem_id)
+
+        if bucketlistitem.done:
+            bucketlistitem.done = False
+            bucketlistitem.save()
+
+        else:
+            bucketlistitem.done = True
+            bucketlistitem.save()
+            messages.success(
+                request, 'Woohoo!!! You did it!')
+
         return redirect('/bucketlists/' + kwargs['bucketlist'] + '/items/',
                         context_instance=RequestContext(request))
 

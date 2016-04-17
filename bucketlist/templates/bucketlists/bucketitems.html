@@ -59,8 +59,15 @@
                             {% for item in bucketitems %}
                             <li class="ui-state-default">
                                 <div class="checkbox">
-                                    <a href="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/edit/" title="Mark as done" class="item-checkbox"><input type="checkbox"{% if item.done %}checked{% endif %}></a>
-                                    <h6>{{ item.name }}</h6>
+                                    <!--Mark item as done or not done-->
+                                    <label>
+                                      <a href="/bucketlists/{{ bucketlist.id }}/items/{{ item.id }}/status/"><input
+                                            type="checkbox" value="" {% if item.done %} checked {% endif %}
+                                            onclick='window.location.assign("/bucketlists/{{ bucketlist.id }}/items/{{ item.id }}/status/")'/>
+                                      </a>
+                                    </label>
+                                    <!--Actual item name-->
+                                    <h6>{{ item.name }}
                                     <!--Delete bucketlistitem icon -->
                                     <a href="#" data-toggle="modal" data-target="#deleteItem"><i class="fa fa-trash fa-lg"></i></a>
                                     <!--Delete bucketitem modal-->
@@ -109,6 +116,7 @@
                                             </div>
                                         </div>
                                   </div>
+                                  </h6>
                   </div>
               </li>
               {% endfor %}
