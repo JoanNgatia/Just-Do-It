@@ -34,7 +34,7 @@ class TestBucketlistView(TestCase):
         """Test that a new user can get registered on the system."""
         response = self.client.post(reverse('register'),
                                     {'username': 'test',
-                                    'password': 'test',
+                                     'password': 'test',
                                      'confirm_password': 'test'})
         self.assertEqual(response.status_code, 302)
 
@@ -42,13 +42,13 @@ class TestBucketlistView(TestCase):
         """Test that a registered user can login."""
         response = self.client.post(reverse('login'),
                                     {'username': 'test',
-                                    'password': 'test'})
+                                     'password': 'test'})
         self.assertEqual(response.status_code, 302)
 
         # Test that a non-registered user cannot login
         response = self.client.post(reverse('login'),
                                     {'username': 'not test',
-                                    'password': 'test'})
+                                     'password': 'test'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/login')
 
@@ -125,6 +125,9 @@ class TestBucketlistView(TestCase):
             {'name': 'MAdtraxx!!'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Bucketlistitem.objects.count(), 5)
+        self.assertEqual(
+            Bucketlistitem.objects.get(id=self.bucketlistitem.id).name,
+            'MAdtraxx!!')
 
     def test_deletion_of_bucketlistitem(self):
         """Test that a user can delete a bucektlist item."""
@@ -134,3 +137,13 @@ class TestBucketlistView(TestCase):
                             'bucketlist': self.bucketlist.id}))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Bucketlistitem.objects.count(), 4)
+
+    def test_edition_of_bucektlistitem_status(self):
+        """Test that a user can change the status of a bucketlist item."""
+        response = self.client.get(
+            reverse('bucketlistitems_status',
+                    kwargs={'pk': self.bucketlistitem.id,
+                            'bucketlist': self.bucketlist.id}))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(
+            Bucketlistitem.objects.get(id=self.bucketlistitem.id).done)
