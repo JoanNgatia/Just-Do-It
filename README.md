@@ -1,6 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela-jngatia/Just-Do-It/badge.svg?branch=develop)](https://coveralls.io/github/andela-jngatia/Just-Do-It?branch=develop)
 [![Build Status](https://travis-ci.org/andela-jngatia/Just-Do-It.svg?branch=develop)](https://travis-ci.org/andela-jngatia/Just-Do-It)
 ![MIT License](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![Code Health](https://landscape.io/github/andela-jngatia/Just-Do-It/develop/landscape.svg?style=flat)](https://landscape.io/github/andela-jngatia/Just-Do-It/develop)
 
 # Just-Do-It
 A Django-powered Bucketlist application inspired by Shia LaBeouf's ["Just do it"](https://youtu.be/ZXsQAXx_ao0) motivational speech
