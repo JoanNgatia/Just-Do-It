@@ -29,7 +29,7 @@ The features attached to the service include:
 5. Access the API as well as the app by running ```python manage.py runserver```
 
 Access to the API endpoints can be via [Postman](https://www.getpostman.com/) or through the Django Rest Framework browseable API accessed in this case by running ```localhost:8000/apiv1/<resource_targeted>/``` on your browser.
-The App itself is accessed by running ```localhost:8000/```
+The App itself is accessed by running ```localhost:8000/``` or at [Just-Do-It2](http://just-do-it2.herokuapp.com/)
 
 ### Running tests
 1. Navigate to project directory.
