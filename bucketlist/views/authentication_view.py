@@ -38,14 +38,14 @@ class RegistrationView(IndexView):
                 password=request.POST['password'])
             login(request, new_user)
             messages.success(
-                request, 'Registration successful!!')
+                request, "You've been successfully registered!")
             return redirect(
                 '/bucketlists',
                 context_instance=RequestContext(request)
             )
         else:
             messages.error(
-                request, 'Error at registration!')
+                request, 'Oops there was a problem on registration!')
             return redirect(
                 '/register',
                 context_instance=RequestContext(request)
@@ -67,7 +67,7 @@ class LoginView(IndexView):
             if user is not None and user.is_active:
                 login(request, user)
                 messages.success(
-                    request, 'Welcome Back!!')
+                    request, 'Glad to have you back!!')
                 return redirect(
                     '/bucketlists',
                     context_instance=RequestContext(request)
