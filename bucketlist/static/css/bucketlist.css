@@ -161,6 +161,21 @@ a.data-content {
   height: 200px;
   margin-left: 20%
 }
+
+.fa-trash {
+  color: red;
+  margin-left: 5%;
+}
+
+.fa-pencil {
+  color: green;
+  margin-left: 5%;
+}
+
+.fa-eye {
+  color: black;
+  margin-left: 5%;
+}
 /*End of all bucketlists view*/
 
 /* Style the buttons that are used to open and close the accordion panel */
