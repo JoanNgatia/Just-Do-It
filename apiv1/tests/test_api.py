@@ -39,20 +39,15 @@ class BucketListApiTest(APITestCase):
 
     def test_bucketlist_retrieval(self):
         """Test that bucketlists can be retrieved from the DB."""
-        # unsuccessful retrieval w/out authentication
         response = self.client.get(url_for_all_bucketlists)
-        # self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successful retrieval of all bucketlists
         auth_response = self.client.get(url_for_all_bucketlists)
         self.assertEqual(auth_response.status_code, 200)
         self.assertEqual(auth_response.data['count'], 3)
 
-        # successful retrieval of a single bucketlist
         auth_response = self.client.get(url_for_one_bucketlist)
         self.assertEqual(auth_response.status_code, 200)
         self.assertEqual(auth_response.data.get('name'), 'Temperature')
@@ -61,15 +56,11 @@ class BucketListApiTest(APITestCase):
         """Test that bucketlists can be added to the DB."""
         new_bl = {'name': 'Go to Rio'}
 
-        # unsuccessful retrieval w/out authentication
         response = self.client.post(url_for_all_bucketlists, new_bl)
-        # self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successful addition of a bucketlist
         auth_response = self.client.post(url_for_all_bucketlists, new_bl)
         self.assertEqual(auth_response.status_code, 201)
         self.assertEqual(auth_response.data.get('name'), 'Go to Rio')
@@ -79,20 +70,16 @@ class BucketListApiTest(APITestCase):
         """Test that existing bucketlists can be edited."""
         edited_bl = {'name': 'Catch mafeelings'}
 
-        # unsuccessful retrieval w/out authentication
         response = self.client.put(url_for_one_bucketlist, edited_bl)
         self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successful edition of a bucketlist
         auth_response = self.client.put(url_for_one_bucketlist, edited_bl)
         self.assertEqual(auth_response.status_code, 200)
         self.assertEqual(auth_response.data.get('name'), 'Catch mafeelings')
 
-        # test that only bucketlilsts that exist can be updated
         auth_response = self.client.put(
             url_for_nonexistent_bucketlist, edited_bl)
         self.assertEqual(auth_response.status_code, 404)
@@ -100,15 +87,12 @@ class BucketListApiTest(APITestCase):
 
     def test_bucketlist_deletion(self):
         """Test that existing bucketlists can be deleted from the DB."""
-        # unsuccessful removal w/out authentication
         response = self.client.delete(url_for_one_bucketlist)
         self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successfule deletion
         auth_response = self.client.delete(url_for_one_bucketlist)
         self.assertEqual(auth_response.status_code, 204)
         self.assertEqual(Bucketlist.objects.count(), 2)
@@ -117,15 +101,12 @@ class BucketListApiTest(APITestCase):
         """Test that a bucketlistitem can be added to a bucketlist."""
         new_item = {'name': 'Zigo Remix', 'bucketlist': 2}
 
-        # unsuccessful creation w/out authentication
         response = self.client.post(url_to_create_new_item, new_item)
         self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successful creation of a bucketlist item.
         auth_response = self.client.post(url_to_create_new_item, new_item)
         self.assertEqual(auth_response.status_code, 201)
         self.assertEqual(auth_response.data.get('name'), 'Zigo Remix')
@@ -138,15 +119,12 @@ class BucketListApiTest(APITestCase):
         """Test that a bucketlistitem can be updated."""
         edited_item = {'name': 'Unconditionally Bae', 'bucketlist': 2}
 
-        # unsuccessful creation w/out authentication
         response = self.client.put(url_for_one_bucketlist_item, edited_item)
         self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successful update of a bucketlist item.
         auth_response = self.client.put(
             url_for_one_bucketlist_item, edited_item)
         self.assertEqual(auth_response.status_code, 200)
@@ -154,15 +132,12 @@ class BucketListApiTest(APITestCase):
 
     def test_bucketlistitem_deletion(self):
         """Test that a bucketlist item can be deleted."""
-        # unsuccessful deletion w/out authentication
         response = self.client.delete(url_for_one_bucketlist_item)
         self.assertEqual(response.data, message)
         self.assertEqual(response.status_code, 401)
 
-        # add authentication to client
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
-        # successfule deletion
         auth_response = self.client.delete(url_for_one_bucketlist_item)
         self.assertEqual(auth_response.status_code, 204)
         self.assertEqual(Bucketlistitem.objects.count(), 3)

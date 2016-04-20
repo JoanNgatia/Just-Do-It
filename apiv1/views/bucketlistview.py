@@ -86,8 +86,8 @@ class BucketlistItemView(DefaultsMixin, generics.CreateAPIView):
 
 
 class BucketlistItemDetail(DefaultsMixin,
-                           generics.RetrieveUpdateDestroyAPIView):
-    """Allow for bucketlist item retreival, edition and deletion.
+                           generics.UpdateAPIView, generics.DestroyAPIView):
+    """Allow for bucketlist item edition and deletion.
 
     URL : /api/v1/bucketlists/<list_id>/items/<items_id>/
     Args:
@@ -96,7 +96,7 @@ class BucketlistItemDetail(DefaultsMixin,
         To update a bucketlist item:
             name - new name of the item.
     Returns:
-        PUT/GET -- Dictionary containing bucketlist item  details inclusive of
+        PUT-- Dictionary containing bucketlist item  details inclusive of
                 name, status(done/not done) and dates created or updated.
         DELETE -- 204 status code
     """
@@ -106,5 +106,7 @@ class BucketlistItemDetail(DefaultsMixin,
     def get_queryset(self):
         """Return specific bucketlistitem as per url request."""
         list_id = self.kwargs['list_id']
-        bucketlistitem = Bucketlistitem.objects.filter(bucketlist=list_id)
+        item_id = self.kwargs['pk']
+        bucketlistitem = Bucketlistitem.objects.filter(
+            id=item_id, bucketlist=list_id)
         return bucketlistitem
