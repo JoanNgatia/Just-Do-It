@@ -11,17 +11,23 @@ class RegistrationForm(forms.Form):
     Check against existing users within models.
     """
 
-    username = forms.RegexField(regex=r'^[0-9a-zA-Z_]*$', max_length=30,
+    username = forms.RegexField(regex=r'^[0-9a-zA-Z_]*$',
+                                max_length=30,
                                 widget=forms.TextInput(attrs=dict(
                                     required=True,
-                                    render_value=False)), label='Username')
-    password = forms.CharField(widget=forms.PasswordInput(attrs=dict(
-        required=True, render_value=False)), label='')
+                                    render_value=False)),
+                                label='Username')
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs=dict(required=True,
+                   render_value=False)),
+        label='')
     confirm_password = forms.CharField(widget=forms.PasswordInput(
         attrs=dict(required=True,
-                   render_value=False)), label='')
+                   render_value=False)),
+        label='')
     tagline = forms.CharField(widget=forms.TextInput(
-        attrs=dict(required=True)), label='')
+        attrs=dict(required=True)),
+        label='')
 
     def clean_username(self):
         """Check that the passed in username does not exist."""
@@ -51,9 +57,7 @@ class RegistrationForm(forms.Form):
 class LoginForm(forms.Form):
     """Create login form with validation on fields."""
 
-    username = forms.CharField(widget=forms.TextInput(attrs=dict({
-        'autocomplete': 'off'
-    })))
+    username = forms.CharField(
+        widget=forms.TextInput(attrs=dict({'autocomplete': 'off'})))
     password = forms.CharField(
-        label='', max_length=100,
-        widget=forms.PasswordInput)
+        label='', max_length=100, widget=forms.PasswordInput)
