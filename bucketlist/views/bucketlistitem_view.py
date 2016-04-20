@@ -42,7 +42,8 @@ class AllBucketlistitemsView(LoginRequiredMixin, TemplateView):
         if form.is_valid():
             item_name = request.POST.get('name')
             new_bucketitem = Bucketlistitem(
-                name=item_name, bucketlist=Bucketlist.objects.get(id=kwargs['pk']))
+                name=item_name,
+                bucketlist=Bucketlist.objects.get(id=kwargs['pk']))
             new_bucketitem.save()
             messages.success(
                 request, 'New Bucketlistitem added successfully!')
@@ -60,7 +61,7 @@ class AllBucketlistitemsView(LoginRequiredMixin, TemplateView):
 
 
 class BucketlistitemUpdate(LoginRequiredMixin, TemplateView):
-    """View logic to handle bucketlistitem name edition and marking as done."""
+    """View logic to handle bucketlistitem name edition."""
 
     def post(self, request, **kwargs):
         """Retrieve new details from request body."""
@@ -82,17 +83,8 @@ class BucketlistItemStatus(LoginRequiredMixin, TemplateView):
         """Retrieve item id from url passed."""
         bucketlistitem_id = kwargs['pk']
         bucketlistitem = Bucketlistitem.objects.get(id=bucketlistitem_id)
-
-        if bucketlistitem.done:
-            bucketlistitem.done = False
-            bucketlistitem.save()
-
-        else:
-            bucketlistitem.done = True
-            bucketlistitem.save()
-            messages.success(
-                request, 'Woohoo!!! You did it!')
-
+        bucketlistitem.done = False if bucketlistitem.done else True
+        bucketlistitem.save()
         return redirect('/bucketlists/' + kwargs['bucketlist'] + '/items/',
                         context_instance=RequestContext(request))
 
