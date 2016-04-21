@@ -1,19 +1,21 @@
 /*Static styling*/
 h1 {
-    font-size: 80px;
-    color: #DDD;
+    font-size: 5em;
+    color: #4CAF50;
 }
 
 h5 {
-    font-size: 80px;
+    font-size: 5em;
     font-family: cursive;
     color: #DDD;
 }
 
 body {
-    background-color: #000;
+    background-color: #C8E6C9;
 }
-
+img {
+    max-width: 150px;
+}
 #bg {
   position: fixed;
   top: -50%;
@@ -71,7 +73,7 @@ label {
   width: 500px;
   margin-left: 300px;
   text-align: center;
-  background-color: grey;
+  background-color: #BBDEFB;
 }
 /*End of dashboard styling*/
 
@@ -224,4 +226,56 @@ div.panel.show {
 
 #sortable {
     padding-left: 20px;
+}
+
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 500px;
+  margin: 5% auto;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
 }
