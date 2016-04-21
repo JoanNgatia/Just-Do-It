@@ -30,6 +30,7 @@ class RegistrationView(IndexView):
         """Method to create a new user."""
         # Check that method is post to access data passed
         form = self.form_class(request.POST)
+        # import ipdb; ipdb.set_trace()
         if form.is_valid():
             # save data passed into the database
             new_user = form.save()
@@ -46,6 +47,8 @@ class RegistrationView(IndexView):
         else:
             messages.error(
                 request, 'Oops there was a problem on registration!')
+            for error in form.errors.values():
+                messages.add_message(request, messages.ERROR, error[0])
             return redirect(
                 '/register',
                 context_instance=RequestContext(request)

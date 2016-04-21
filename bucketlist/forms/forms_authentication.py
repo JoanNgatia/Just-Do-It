@@ -58,6 +58,6 @@ class LoginForm(forms.Form):
     """Create login form with validation on fields."""
 
     username = forms.CharField(
-        widget=forms.TextInput(attrs=dict({'autocomplete': 'off'})))
+        widget=forms.TextInput(attrs=dict(autocomplete='off', required=True)))
     password = forms.CharField(
-        label='', max_length=100, widget=forms.PasswordInput)
+        label='', max_length=100, widget=forms.PasswordInput(attrs=dict(required=True)))
