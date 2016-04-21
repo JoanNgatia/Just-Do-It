@@ -18,7 +18,7 @@ var main = function() {
 
     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
 
-    $(".flash-message").fadeOut(7000);
+    $(".flash-message").fadeOut(4000);
 }
 
 $(document).ready(main);
