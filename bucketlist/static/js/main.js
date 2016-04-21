@@ -16,14 +16,13 @@ var main = function() {
         $('#deleteBucketlistModal').modal('show');
     });
 
+    $('.message a').click(function(){
+     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+    });
+
     $('[data-toggle="tooltip"]').tooltip({animation: true, delay: {show: 300, hide: 300}});
 
     $(".flash-message").fadeOut(4000);
 }
 
 $(document).ready(main);
-
-
-$('.message a').click(function(){
- $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-});
