@@ -4,73 +4,63 @@
 <nav class="navbar navbar-fixed-top z-depth-1" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand waves-effect waves-light" href="/bucketlists">Just-Do-It!</a>
+      <a class="navbar-brand waves-effect waves-light" href="/bucketlists"><strong>Just-Do-It!</strong></a>
+    </div>
+    <div class="navbar-right">
+      <span class="text-center">Logged in as {{user.username}}</span>
+      <a href="{% url 'logout' %}" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom">
+        <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 </nav>
 {% endblock%}
 
 {% block content %}
-  <div class="row content">
-    <div class="col-sm-3 sidenav">
-      <div class="profile">
-        <i class="fa fa-user fa-5x"></i>
-        <h4>Hey {{user.username}}</h4>
-        <a href="{% url 'logout' %}" class="btn btn-info">Logout</a>
-      </div>
-      <ul class="nav nav-pills nav-stacked">
-        <button class="accordion">My Bucketlists</button>
-        <div class="panel">
-          {% if not buckets %}
-          <li>None here yet!</li>
-          {% endif %}
-          {% for bucketlist in buckets %}
-          <li><a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}">{{ bucketlist.name }}</a></li>
-          {% endfor %}
-        </div>
-        <li class="list-group-item" id="all_bucketlists"><a href="#">Create a new bucketlist</a></li>
-      </ul><br>
-      <div>
-        <h4>{{user.tagline}}</h4>
+<div class="row content">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="newbucket panel-body">
+        <span class="col-sm-8"><h4 class="pull-left">My bucketlists</h4></span>
+        <span class="col-sm-4"><a class="pull-right" data-toggle="tooltip" data-placement="top" id="all_bucketlists" data-original-title="add new bucketlist"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a></span>
       </div>
     </div>
-    <div class="col-sm-9 col-sm-offset-3">
-      <div class="row">
-        <div class="col-sm-12">
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
-                        {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
-            {% if not buckets %}
-              <div class="well panel-default" id="buckets">
-                <h3>No bucketlists here yet! &#9785;</h3>
-                <h4>Create one &#9756;</h4>
-              </div>
-            {% endif %}
+    <div class="row">
+      <div class="col-sm-12">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} flash-message" role="alert">
+          {{ message }}
         </div>
+        {% endfor %}
+        {% endif %}
+        {% if not buckets %}
+        <div class="well panel-default" id="buckets">
+          <h3>No bucketlists here yet! &#9785;</h3>
+          <h4>Create one &#9756;</h4>
+        </div>
+        {% endif %}
+      </div>
       <!-- view all bucketlists -->
       <div class="card-columns">
         {% for bucketlist in buckets %}
         <div class="col-md-4">
-          <div class="card card-block view overlay hm-blue-light">
+          <div class="card card-block view">
             <div class="card-content text-center">
               <h4><a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}">{{ bucketlist.name }}</a></h4>
             </div>
             <div class="mask">
               <div class="verticalcenter">
                 <div class="white-text text-center">
-                    <!--Edit bucketlist icon-->
-                    <a data-action="/bucketlists/{{bucketlist.id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link" data-original-title="Edit bucketlist"><i class="fa fa-pencil fa-lg"></i></a>
+                  <!--Edit bucketlist icon-->
+                  <a data-action="/bucketlists/{{bucketlist.id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link" data-original-title="Edit bucketlist"><i class="fa fa-pencil fa-lg"></i></a>
 
-                    <!--Delete bucketlist icon -->
-                    <a href="#" data-toggle="tooltip" id="deleteBucket" data-placement="top" title="" data-original-title="Delete bucketlist"><i class="fa fa-trash fa-lg"></i></a>
+                  <!--Delete bucketlist icon -->
+                  <a href="#" data-toggle="tooltip" id="deleteBucket" data-placement="top" title="" data-original-title="Delete bucketlist"><i class="fa fa-trash fa-lg"></i></a>
 
-                    <!--View and Add items to bucketlist-->
-                    <a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}"
-                     data-toggle="tooltip" data-placement="top" title="" data-original-title="View bucket items"><i class="fa fa-eye fa-lg"></i></a>
+                  <!--View and Add items to bucketlist-->
+                  <a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}"
+                  data-toggle="tooltip" data-placement="top" title="" data-original-title="View bucket items"><i class="fa fa-eye fa-lg"></i></a>
                 </div>
               </div>
             </div>
@@ -107,8 +97,8 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel">Delete bucketlist</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Delete bucketlist</h4>
               </div>
               <div class="modal-body">
                 <h6>Are you sure?</h6>
