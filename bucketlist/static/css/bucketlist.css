@@ -1,33 +1,16 @@
 /*Static styling*/
+
 h1 {
     font-size: 5em;
     color: #4CAF50;
 }
 
 body {
-  background: url('../img/concrete_seamless.png');
-}
-img {
-    max-width: 150px;
-}
-#bg {
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  opacity: 0.5;
+    background: url('../img/concrete_seamless.png');
 }
 
-#bg img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  min-width: 50%;
-  min-height: 50%;
+img {
+    max-width: 150px;
 }
 
 .main {
@@ -38,12 +21,20 @@ img {
 }
 
 .alert {
-  color: #000;
+    color: #000;
 }
+
+.tooltip > .tooltip-inner {
+    padding: 15px;
+    font-size: 12px;
+}
+
 
 /*End of static styling*/
 
+
 /*Dashboard specific styling*/
+
 .verticalcenter {
     top: 80%;
 }
@@ -63,26 +54,93 @@ label {
 }
 
 .well {
-  margin-top: 150px;
-  width: 500px;
-  margin-left: 300px;
-  text-align: center;
-  background-color: #BBDEFB;
+    margin-top: 150px;
+    width: 500px;
+    margin-left: 300px;
+    text-align: center;
+    background-color: #BBDEFB;
 }
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 500px;
+    margin: 5% auto;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.form button:hover,
+.form button:active,
+.form button:focus {
+    background: #43A047;
+}
+
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+.form .message a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.form .register-form {
+    display: none;
+}
+
+.fa-sign-out {
+    color: #FFFFFF
+}
+
+
 /*End of dashboard styling*/
 
+
 /*All bucketlists view styling*/
+
 h4 {
-  text-align: center;
-  color: #222;
-  font-family: Monospace;
-  font-size: 18px;
+    text-align: center;
+    color: #222;
+    font-family: Monospace;
+    font-size: 18px;
 }
 
 .thumbnail {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 a.btn.btn-md {
@@ -97,22 +155,6 @@ a.btn.btn-md {
     margin-top: 10px;
 }
 
-.sidenav {
-  background-color: #f1f1f1;
-  padding: auto;
-  top: 60px;
-  position: fixed;
-}
-
-.profile {
-    text-align: center;
-}
-
-.profile .fa {
-    margin-top: 10px;
-    color: #009688;
-}
-
 .card {
     height: 200px;
 }
@@ -125,14 +167,8 @@ a.btn.btn-md {
     right: 0;
 }
 
-
 a.btn-small {
     margin-left: 100px;
-}
-
-.panel-heading {
-    margin-top: 30px;
-    margin-bottom: auto;
 }
 
 .navbar {
@@ -147,138 +183,31 @@ a.data-content {
     font-size: 10px;
 }
 
-.panel-default {
+.board {
     background-color: #eee;
     margin-top: 60px;
 }
 
 #buckets {
-  background-color: #CCC;
-  height: 200px;
-  margin-left: 20%
+    background-color: #CCC;
+    height: 200px;
+    margin-left: 20%
 }
 
 .fa-trash {
-  color: red;
-  margin-left: 5%;
+    color: red;
+    margin-left: 5%;
 }
 
 .fa-pencil {
-  color: green;
-  margin-left: 5%;
+    color: green;
+    margin-left: 5%;
 }
 
 .fa-eye {
-  color: black;
-  margin-left: 5%;
+    color: black;
+    margin-left: 5%;
 }
+
+
 /*End of all bucketlists view*/
-
-/* Style the buttons that are used to open and close the accordion panel */
-button.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
-}
-
-button.accordion:after {
-    content: '\02795';
-    font-size: 13px;
-    color: #777;
-    float: right;
-    margin-left: 5px;
-}
-
-button.accordion.active:after {
-    content: "\2796";
-}
-
-/*Style the accordion panel. Note: hidden by default*/
-div.panel {
-    padding: 0 18px;
-    background-color: white;
-    display: none;
-    transition: 0.6s ease-in-out;
-}
-
- /*The "show" class is added to the accordion panel when the user clicks on one of the buttons. This will show the panel content*/
-div.panel.show {
-    display: block !important;
-    transition: 0.6s ease-in-out;
-}
-
-#sortable {
-    padding-left: 20px;
-}
-
-
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 500px;
-  margin: 5% auto;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-.form .register-form {
-  display: none;
-}
-
-.tooltip > .tooltip-inner {
-    padding: 15px;
-    font-size: 12px;
-}
-
-.fa-sign-out {
-  color: #FFFFFF
-}
