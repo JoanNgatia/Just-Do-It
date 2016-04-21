@@ -12,6 +12,9 @@ class BucketListForm(forms.ModelForm):
     class Meta:
         model = Bucketlist
         fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'required': True}),
+        }
 
 
 class BucketlistItemForm(forms.ModelForm):
@@ -23,3 +26,6 @@ class BucketlistItemForm(forms.ModelForm):
     class Meta:
         model = Bucketlistitem
         fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'required': True}),
+        }
