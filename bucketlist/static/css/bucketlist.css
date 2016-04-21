@@ -4,14 +4,8 @@ h1 {
     color: #4CAF50;
 }
 
-h5 {
-    font-size: 5em;
-    font-family: cursive;
-    color: #DDD;
-}
-
 body {
-    background-color: #C8E6C9;
+  background: url('../img/concrete_seamless.png');
 }
 img {
     max-width: 150px;
@@ -278,4 +272,13 @@ div.panel.show {
 }
 .form .register-form {
   display: none;
+}
+
+.tooltip > .tooltip-inner {
+    padding: 15px;
+    font-size: 12px;
+}
+
+.fa-sign-out {
+  color: #FFFFFF
 }
