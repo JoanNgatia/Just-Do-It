@@ -6,12 +6,8 @@
 {% block content %}
 <div class="row content">
   <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="newbucket panel-body">
-        <span class="col-sm-8"><h4 class="pull-left">My bucketlists</h4></span>
-        <span class="col-sm-4"><a class="pull-right" data-toggle="tooltip" data-placement="top" id="all_bucketlists" data-original-title="add new bucketlist"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a></span>
-      </div>
-    </div>
+    <h4 class="pull-left">My bucketlists</h4></span>
+    <a class="btn btn-default bucketadd pull-right" id="all_bucketlists"><i class="fa fa-plus left"></i>Add new bucketlist</a>
     <div class="row">
       <div class="col-sm-12">
         {% if messages %}
@@ -30,78 +26,85 @@
       <!-- view all bucketlists -->
       <div class="card-columns">
         {% for bucketlist in buckets %}
-          <div class="col-md-4">
-            <div class="card card-block view">
-              <div class="card-content text-center">
-                <h4><a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}">{{ bucketlist.name }}</a></h4>
-              </div>
-              <div class="mask">
-                <div class="verticalcenter">
-                  <div class="white-text text-center">
-                    <!--Edit bucketlist icon-->
-                    <a data-action="/bucketlists/{{bucketlist.id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal" data-placement="top" class="edit-link" data-original-title="Edit bucketlist">
-                      <i class="fa fa-pencil fa-lg"></i>
-                    </a>
-
-                    <!--Delete bucketlist icon -->
-                    <a href="#" data-toggle="tooltip" id="deleteBucket" data-placement="top" title="" data-original-title="Delete bucketlist">
-                      <i class="fa fa-trash fa-lg"></i>
-                    </a>
-
-                    <!--View and Add items to bucketlist-->
-                    <a class="" href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}" data-toggle="tooltip" data-placement="top" title="" data-original-title="View bucket items">
-                      <i class="fa fa-eye fa-lg"></i>
-                    </a>
+        <div class="col-md-4 bucket-card">
+          <div class="card card-block view">
+            <div class="card-content text-center">
+              <h4>{{ bucketlist.name }}</h4>
+            </div>
+            <div class="mask">
+              <div class="verticalcenter">
+                <div class="white-text text-center">
+                  <div class="row card-with-options">
+                    <div class="col-xs-4">
+                      <!--Edit bucketlist icon-->
+                      <a data-action="/bucketlists/{{bucketlist.id}}/edit/" href="#modal{{bucketlist.id}}" data-toggle="modal">
+                        <i class="fa fa-pencil">&nbsp;</i>
+                        Edit
+                      </a>
+                    </div>
+                    <div class="col-xs-4">
+                      <!--Delete bucketlist icon -->
+                      <a href="#"  id="deleteBucket" data-placement="top"><i class="fa fa-trash">&nbsp;</i>Delete
+                      </a>
+                    </div>
+                    <div class="col-xs-4">
+                      <!--View and Add items to bucketlist-->
+                      <a href="{% url 'bucketlistitems_get' pk=bucketlist.pk %}"  title="" >
+                        <i class="fa fa-eye">&nbsp;</i>
+                        View
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Edit existing bucketlist modal -->
-          <div id="modal{{bucketlist.id}}" class="modal fade" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4 class="modal-title" id="myModalLabel">Edit Bucketlist Name</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="bucketlistform">
-                    <form role="form" action="/bucketlists/{{bucketlist.id}}/edit/" method="post">
-                      <fieldset>
-                        {% csrf_token %}
-                        <input type="text" name="name" value="{{ bucketlist.name }}">
-                        <input type="submit" value="Update" class="btn btn-primary">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                      </fieldset>
-                    </form>
-                  </div>
+        <!-- Edit existing bucketlist modal -->
+        <div id="modal{{bucketlist.id}}" class="modal fade" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Edit Bucketlist Name</h4>
+              </div>
+              <div class="modal-body">
+                <div class="bucketlistform">
+                  <form role="form" action="/bucketlists/{{bucketlist.id}}/edit/" method="post">
+                    <fieldset>
+                      {% csrf_token %}
+                      <input type="text" name="name" value="{{ bucketlist.name }}">
+                      <input type="submit" value="Update" class="btn btn-primary">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </fieldset>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!--Delete bucketitem modal-->
-          <div class="modal fade" id="deleteBucketlistModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel">Delete bucketlist</h4>
-                </div>
-                <div class="modal-body">
-                  <h6>Are you sure?</h6>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                  <a href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}" class="btn btn-danger modal-delete-btn">Delete</a>
-                </div>
+        <!--Delete bucketitem modal-->
+        <div class="modal fade" id="deleteBucketlistModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Delete bucketlist</h4>
+              </div>
+              <div class="modal-body">
+                <h6>Are you sure?</h6>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="{% url 'single_bucketlist_delete' pk=bucketlist.pk %}" class="btn btn-danger modal-delete-btn">Delete</a>
               </div>
             </div>
           </div>
+        </div>
         {% endfor %}
       </div>
       <!--Create a new bucketlist-->
