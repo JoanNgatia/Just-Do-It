@@ -17,7 +17,7 @@ img {
     position: absolute;
     top: 0px;
     width: 100vw;
-    padding: 0 20px;
+    padding: 3% 5%;
 }
 
 .alert {
@@ -161,11 +161,17 @@ h4 {
 }
 
 .navbar {
-    height: 50px;
+    /*height: 50px;*/
     background-color: #4CAF50;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+}
+
+.navbar-collapse li{
+    vertical-align: bottom: ;
+    color: white !important;
+    /*padding: 0 2%;*/
 }
 
 a.data-content {
@@ -183,7 +189,8 @@ a.data-content {
     margin-left: 20%
 }
 
-.fa-trash {
+
+/*.fa-trash {
     color: red;
 }
 
@@ -194,12 +201,14 @@ a.data-content {
 .fa-eye {
     color: black;
 }
+*/
 
 .card-with-options > div[class*="col-xs"] {
     padding: 4% !important;
     vertical-align: bottom;
     border-right: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
+    cursor: pointer;
 }
 
 .card-with-options > div[class*="col-xs"]:last-child {
@@ -210,9 +219,22 @@ a.data-content {
     background-color: #4CAF50;
 }
 
+.card-with-options > div[class*="col-xs"].button-view:hover {
+    background-color: #4285F4;
+}
+
+.card-with-options > div[class*="col-xs"].button-edit:hover {
+    background-color: #4CAF50;
+}
+
+.card-with-options > div[class*="col-xs"].button-delete:hover {
+    background-color: #F44235;
+}
+
 .card-with-options > div[class*="col-xs"]:hover a {
     color: white !important;
 }
+
 .card-with-options > div[class*="col-xs"]:hover i {
     color: white !important;
 }
@@ -236,5 +258,10 @@ a.data-content {
 .bucketadd {
     background: #4CAF50;
 }
+
+.clear-both {
+    clear: both;
+}
+
 
 /*End of all bucketlists view*/
