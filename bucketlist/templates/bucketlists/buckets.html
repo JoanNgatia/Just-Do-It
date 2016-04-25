@@ -18,7 +18,7 @@
         {% endfor %}
         {% endif %}
         {% if not buckets %}
-        <div class="well panel-default" id="buckets">
+        <div class="well panel-default">
           <h3>No bucketlists here yet! &#9785;</h3>
         </div>
         {% endif %}
@@ -30,6 +30,7 @@
           <div class="card card-block view">
             <div class="card-content text-center">
               <h4>{{ bucketlist.name }}</h4>
+              <small><em> Updated {{ bucketlist.updated_at | timesince }} ago</em></small>
             </div>
             <div class="mask">
               <div class="verticalcenter">
