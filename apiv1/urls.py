@@ -2,18 +2,18 @@
 
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import accountsview, bucketlistview
+from .views import accounts, bucket_list
 
 urlpatterns = [
-    url(r'^users/$', accountsview.AccountsList.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/$', accountsview.AccountsDetail.as_view()),
-    url(r'^bucketlists/$', bucketlistview.BucketListView.as_view()),
+    url(r'^users/$', accounts.AccountsList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/$', accounts.AccountsDetail.as_view()),
+    url(r'^bucketlists/$', bucket_list.BucketListView.as_view()),
     url(r'^bucketlists/(?P<pk>[0-9]+)/$',
-        bucketlistview.BucketlistDetail.as_view()),
+        bucket_list.BucketlistDetail.as_view()),
     url(r'^bucketlists/(?P<pk>[0-9]+)/items/$',
-        bucketlistview.BucketlistItemView.as_view()),
+        bucket_list.BucketlistItemView.as_view()),
     url(r'^bucketlists/(?P<list_id>[0-9]+)/items/(?P<pk>[0-9]+)/$',
-        bucketlistview.BucketlistItemDetail.as_view()),
+        bucket_list.BucketlistItemDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
