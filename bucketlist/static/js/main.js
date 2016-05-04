@@ -12,10 +12,6 @@ var main = function() {
         $('#newbucketModal').modal('show');
     });
 
-    $('#deleteBucket').click(function(){
-        $('#deleteBucketlistModal').modal('show');
-    });
-
     $('.message a').click(function(){
      $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
     });
