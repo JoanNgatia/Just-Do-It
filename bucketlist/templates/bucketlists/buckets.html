@@ -79,7 +79,7 @@
                   <form role="form" action="/bucketlists/{{bucketlist.id}}/edit/" method="post">
                     <fieldset>
                       {% csrf_token %}
-                      <input type="text" name="name" value="{{ bucketlist.name }}">
+                      <input type="text" name="name" value="{{ bucketlist.name }}" required="True">
                       <input type="submit" value="Update" class="btn btn-primary">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </fieldset>
