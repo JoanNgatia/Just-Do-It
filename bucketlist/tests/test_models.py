@@ -34,7 +34,7 @@ class BucketModelsTest(TestCase):
         self.assertTrue(Bucketlist.objects.all())
         self.assertIn('test_bucketlist',
                       Bucketlist.objects.get(name='test_bucketlist').name)
-        self.assertEqual(Bucketlist.objects.count(), 4)
+        self.assertEqual(Bucketlist.objects.count(), 5)
         self.assertIsInstance(self.bucketlist, Bucketlist)
 
     def test_bucketlistitem_creation(self):

@@ -9,9 +9,10 @@ auth = '/api/token/'
 url_register_new_user = '/api/v1/users/'
 url_for_all_bucketlists = '/api/v1/bucketlists/'
 url_for_one_bucketlist = '/api/v1/bucketlists/2/'
+url_for_unauthorized_bucketlist = '/api/v1/bucketlists/4/'
 url_to_create_new_item = '/api/v1/bucketlists/2/items/'
 url_for_one_bucketlist_item = '/api/v1/bucketlists/2/items/2/'
-url_for_nonexistent_bucketlist = '/api/v1/bucketlists/4/'
+url_for_nonexistent_bucketlist = '/api/v1/bucketlists/8/'
 not_found_msg = {"detail": "Not found."}
 
 
@@ -25,7 +26,7 @@ class BucketListApiTest(APITestCase):
         """Create base authentication details."""
         token_url = reverse('token')
         data = {
-            'username': Account.objects.get().username, 'password': 'ASHLEY19'}
+            'username': 'joan', 'password': 'ASHLEY19'}
         self.response = self.client.post(token_url, data)
         self.token = self.response.data.get('token')
 
@@ -41,6 +42,9 @@ class BucketListApiTest(APITestCase):
         """Test that bucketlists can be retrieved from the DB."""
         response = self.client.get(url_for_all_bucketlists)
         self.assertEqual(response.status_code, 401)
+
+        auth_response = self.client.get(url_for_unauthorized_bucketlist)
+        self.assertEqual(auth_response.status_code, 401)
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
@@ -64,7 +68,7 @@ class BucketListApiTest(APITestCase):
         auth_response = self.client.post(url_for_all_bucketlists, new_bl)
         self.assertEqual(auth_response.status_code, 201)
         self.assertEqual(auth_response.data.get('name'), 'Go to Rio')
-        self.assertEqual(Bucketlist.objects.count(), 4)
+        self.assertEqual(Bucketlist.objects.count(), 5)
 
     def test_bucketlist_edition(self):
         """Test that existing bucketlists can be edited."""
@@ -95,7 +99,7 @@ class BucketListApiTest(APITestCase):
 
         auth_response = self.client.delete(url_for_one_bucketlist)
         self.assertEqual(auth_response.status_code, 204)
-        self.assertEqual(Bucketlist.objects.count(), 2)
+        self.assertEqual(Bucketlist.objects.count(), 3)
 
     def test_bucketlistitem_creation(self):
         """Test that a bucketlistitem can be added to a bucketlist."""

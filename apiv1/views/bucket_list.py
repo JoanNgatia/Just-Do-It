@@ -4,6 +4,7 @@ from rest_framework import generics, permissions, authentication, \
     filters
 from bucketlist.models import Bucketlist, Bucketlistitem
 from apiv1.serializers import bucketlistserializer
+from apiv1.permissions import IsOwnerOrReadOnly
 
 
 class DefaultsMixin(object):
@@ -36,9 +37,12 @@ class BucketListView(DefaultsMixin, generics.ListCreateAPIView):
                 name,items contained, dates created or updated and the creator
     """
 
-    queryset = Bucketlist.objects.all()
+    # queryset = Bucketlist.objects.all()
     serializer_class = bucketlistserializer.BucketlistSerializer
     search_fields = ('name', )
+
+    def get_queryset(self):
+        return Bucketlist.objects.filter(creator=self.request.user)
 
     def perform_create(self, serializer):
         """Associate bucketlist to an account,save data passed in request."""

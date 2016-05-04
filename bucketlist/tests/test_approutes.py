@@ -69,7 +69,7 @@ class TestBucketlistView(TestCase):
         response = self.client.post(
             reverse('all_bucketlists'), {'name': 'Lets go to the zoo'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Bucketlist.objects.count(), 5)
+        self.assertEqual(Bucketlist.objects.count(), 6)
 
         # unsuccessful creation
         response = self.client.post(
@@ -84,7 +84,7 @@ class TestBucketlistView(TestCase):
                     kwargs={'pk': self.bucketlist.id}),
             {'name': 'Lets go to the zoo'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Bucketlist.objects.count(), 4)
+        self.assertEqual(Bucketlist.objects.count(), 5)
 
     def test_access_to_bucketlist_deletion(self):
         """Test that a user can deletet a bucketlist."""
@@ -92,7 +92,7 @@ class TestBucketlistView(TestCase):
             reverse('single_bucketlist_delete',
                     kwargs={'pk': self.bucketlist.id}))
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Bucketlist.objects.count(), 3)
+        self.assertEqual(Bucketlist.objects.count(), 4)
 
     def test_access_to_bucketlistitems(self):
         """Test that a user can view items in their bucketlists."""
