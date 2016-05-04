@@ -178,7 +178,7 @@ a.data-content {
 
 .board {
     border: 1px solid rgba(76, 175, 80, 0.43);
-    background-color: #eee;
+    background-color: #FFFFFF;
     margin-top: 60px;
 }
 
@@ -258,5 +258,13 @@ a.data-content {
 
 .board .fa-trash:hover {
     color: #F44235;
+}
+
+.todolist {
+    margin-bottom: 30px;
+}
+
+.cancel {
+    margin-bottom: 0px;
 }
 /*End of all bucketlists view*/
