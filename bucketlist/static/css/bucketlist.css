@@ -193,6 +193,9 @@ a.data-content {
     vertical-align: bottom;
     border-right: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
+}
+
+.card-with-options > div[class*="col-xs"].a {
     cursor: pointer;
 }
 
@@ -265,6 +268,21 @@ a.data-content {
 }
 
 .cancel {
+    margin-bottom: 0px;
+}
+
+.item {
+    margin-bottom: 38px;
+}
+
+.header {
+    padding-left: 70px;
+    padding-right: 65px;
+}
+
+.title {
+    padding-bottom: 0px;
+    padding-top: 0px;
     margin-bottom: 0px;
 }
 /*End of all bucketlists view*/
