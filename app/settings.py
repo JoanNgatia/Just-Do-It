@@ -152,24 +152,8 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_URL = '/static/'
-
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/bucketlist/static/'
-# Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     # '/var/www/static/',
-# ]
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Default user creation to Account model
 AUTH_USER_MODEL = 'bucketlist.Account'
@@ -195,13 +179,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5
 }
 
-
-SWAGGER_SETTINGS = {
-    'api_path': '/',
-    'is_authenticated': True,
-    'is_superuser': True,
-    'permission_denied_handler': 'django.contrib.auth.views.login',
-}
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
