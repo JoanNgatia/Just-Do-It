@@ -179,6 +179,14 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5
 }
 
+SWAGGER_SETTINGS = {
+    # An API key
+    "api_key": '',
+    # Set to True to enforce user authentication,
+    "is_authentcated": False,
+    # Set to True to enforce admin only access
+    "is_superuser": False,
+}
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
