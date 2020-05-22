@@ -1,0 +1,114 @@
+[
+    {
+        "fields":{
+            "username": "joan",
+            "password": "pbkdf2_sha256$24000$8yQg8hgMUsl4$w5dQFJ7maV9QcuCdAmgCo5gaKfScL7CSmPuvhRJ53a4=",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "tagline": "Just Do It",
+            "created_at": "2016-03-10 22:33:17.697483+03" ,
+            "updated_at": "2016-03-10 22:33:17.697483+03"
+            },
+        "model": "bucketlist.Account",
+        "pk": 1
+    },
+    {
+        "fields":{
+            "username": "margaret",
+            "password": "pbkdf2_sha256$24000$hWKe5IB78u2O$CO0ahLH2gzZLees8WLeIjzeRxnpUd/QBzRfoRqhZMt8=",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "tagline": "Just Do It",
+            "created_at": "2016-03-10 22:33:17.697483+03" ,
+            "updated_at": "2016-03-10 22:33:17.697483+03"
+            },
+        "model": "bucketlist.Account",
+        "pk": 2
+    },
+    {
+        "fields":{
+            "name": "Twende Nyumbani",
+            "creator": 1,
+            "created_at": "2016-03-17T08:01:50.039089Z",
+            "updated_at": "2016-03-17T08:01:50.039118Z"
+            },
+        "model": "bucketlist.Bucketlist",
+        "pk": 1
+    },
+    {
+        "fields":{
+            "name": "Temperature",
+            "creator": 1,
+            "created_at": "2016-03-17T08:01:50.039089Z",
+            "updated_at": "2016-03-17T08:01:50.039118Z"
+            },
+        "model": "bucketlist.Bucketlist",
+        "pk": 2
+    },
+    {
+        "fields":{
+            "name": "Buillon Van",
+            "creator": 1,
+            "created_at": "2016-03-17T08:01:50.039089Z",
+            "updated_at": "2016-03-17T08:01:50.039118Z"
+            },
+        "model": "bucketlist.Bucketlist",
+        "pk": 3
+    },
+    {
+        "fields":{
+            "name": "Uliza Kiatu",
+            "creator": 2,
+            "created_at": "2016-03-17T08:01:50.039089Z",
+            "updated_at": "2016-03-17T08:01:50.039118Z"
+            },
+        "model": "bucketlist.Bucketlist",
+        "pk": 4
+    },
+    {
+        "fields":{
+            "name": "kansoul",
+            "done": false,
+            "bucketlist": 1,
+            "created_at": "2016-03-17T08:03:00.660591Z",
+            "updated_at": "2016-03-17T08:03:00.660614Z"
+            },
+        "model": "bucketlist.Bucketlistitem",
+        "pk": 1
+    },
+    {
+        "fields":{
+            "name": "yemi alade",
+            "done": false,
+            "bucketlist": 2,
+            "created_at": "2016-03-17T08:03:00.660591Z",
+            "updated_at": "2016-03-17T08:03:00.660614Z"
+            },
+        "model": "bucketlist.Bucketlistitem",
+        "pk": 2
+    },
+    {
+        "fields":{
+            "name": "Sauti Sol",
+            "done": false,
+            "bucketlist": 2,
+            "created_at": "2016-03-17T08:03:00.660591Z",
+            "updated_at": "2016-03-17T08:03:00.660614Z"
+            },
+        "model": "bucketlist.Bucketlistitem",
+        "pk": 3
+    },
+    {
+        "fields":{
+            "name": "MI and Avril",
+            "done": false,
+            "bucketlist": 3,
+            "created_at": "2016-03-17T08:03:00.660591Z",
+            "updated_at": "2016-03-17T08:03:00.660614Z"
+            },
+        "model": "bucketlist.Bucketlistitem",
+        "pk": 4
+    }
+]

@@ -1,0 +1,71 @@
+{% extends 'bucketlists/base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block content%}
+<div class="container">
+  <div class="col-xs-12 text-center abcen1">
+    <div class="login-page">
+      <div class="form">
+        <div id="icon"><img src="{% static 'img/icon2.png' %}"></div>
+        <h1 class="h1_home wow fadeIn animated animated">Just-Do-It!</h1>
+        <div class="col-sm-12">
+          {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} flash-message" role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+        <form class="register-form" action="/register" method="post">
+          <fieldset>
+            {% csrf_token %}
+            <div class="input-field">
+              {{ registrationform.username }}
+              <label for="Username">Username</label>
+              <div class="errors">{{ registrationform.errors }}</div>
+            </div>
+            <div class="input-field">
+              {{ registrationform.password }}
+              <label for="Password">Password</label>
+              <div class="errors">{{ registrationform.errors }}</div>
+            </div>
+            <div class="input-field">
+              {{ registrationform.confirm_password }}
+              <label for="Confirm Password">Confirm Password</label>
+              <div class="errors">{{ registrationform.errors }}</div>
+            </div>
+            <div class="input-field">
+              {{ registrationform.tagline }}
+              <label for="Tagline">Tagline</label>
+            </div>
+
+            <div class="form-group">
+              <button>create</button>
+              <p class="message">Already registered? <a href="#">Sign In</a></p>
+            </div>
+          </fieldset>
+        </form>
+        <form class="login-form" action="/login" method="post">
+          <fieldset>
+            {% csrf_token %}
+            <div class="input-field">
+              {{ loginform.username }}
+              <label for="Username">Username</label>
+            </div>
+            <div class="input-field">
+              {{ loginform.password }}
+              <label for="Password">Password</label>
+            </div>
+            <div class="form-group">
+             <button>login</button>
+             <p class="message">Not registered? <a href="#">Create an account</a></p>
+           </div>
+         </fieldset>
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'bucketlists/base.html' %}
+{% load bootstrap_tags %}
+{% block navbar %}
+  {% include "bucketlists/partials/navbar.html" %}
+{% endblock%}
+{% block content%}
+<div>
+  <div class="col-sm-12">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="board panel-default">
+        <div class="row">
+          <div class="col-sm-12">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} flash-message" role="alert">
+              {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="panel-heading c-list text-center">
+          <a href="/bucketlists/" class="pull-left back" data-toggle="tooltip" data-placement="top" data-original-title="back to bucketlists"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a>
+          <span class="title"><h5>{{ bucketlist.name }}</h5></span>
+        </div>
+        <div class="panel-body">
+          <div class="todolist not-done">
+            <form role="form" action="/bucketlists/{{bucketlist.id}}/items/" method="post">
+              {% csrf_token %}
+              <div class="item-input">
+                <div class="input-field">
+                  {{ bucketlistitemform.name }}
+                  <label for="name">New Item</label>
+                </div>
+                <input type="submit" value="Add" class="btn btn-primary btn-sm">
+              </div>
+            </form>
+          </div>
+          <div>
+            {% if bucketitems %}
+            <ul id="sortable" class="list-unstyled">
+              <p>Your current items in this bucket are: </p>
+                {% for item in bucketitems %}
+                <li class="ui-state-default blitem">
+                  <div class="item">
+                    <div class="col-xs-8">
+                      <!--Mark item as done or not done-->
+                      <label>
+                        <a href="/bucketlists/{{ bucketlist.id }}/items/{{ item.id }}/status/"><input
+                          type="checkbox" value="" {% if item.done %}checked{% endif %}
+                          onclick='window.location.assign("/bucketlists/{{ bucketlist.id }}/items/{{ item.id }}/status/")'/>
+                        </a>
+                      </label>
+                      <!--Actual item name-->
+                      {% if item.done %}
+                      <span><s>{{ item.name }}</s></span>
+                      {% else %}
+                      <span>{{ item.name }}</span>
+                      {% endif %}
+                    </div>
+                    <div class="col-xs-4">
+                      <!--Delete bucketlistitem icon -->
+                      <a href="#" data-toggle="modal" data-target="#deleteItem"><i class="fa fa-trash fa-lg"></i></a>
+                      <!--Edit bucketlistitem icon-->
+                      <a data-action="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/edit/" href="#modal{{item.id}}" data-toggle="modal" data-placement="top" class="edit-link"><i class="fa fa-pencil fa-lg"></i></a>
+                    </div>
+
+                    <!--Delete bucketitem modal-->
+                    <div class="modal fade" id="deleteItem" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Delete bucketlistitem</h4>
+                          </div>
+                          <div class="modal-body">
+                            <h6>Are you sure?</h6>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="#" class="btn btn-default cancel" data-dismiss="modal">Cancel</a>
+                            <a href="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/delete/" class="btn btn-danger modal-delete-btn">Delete</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Edit bucketlist item modal-->
+                    <div id="modal{{item.id}}" class="modal fade" role="dialog">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Bucketlist item</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="bucketlistform">
+                              <form role="form" action="/bucketlists/{{bucketlist.id}}/items/{{item.id}}/edit/" method="post">
+                                <fieldset>
+                                  {% csrf_token %}
+                                  <input type="text" name="name" value="{{ item.name }}" required="True">
+                                  <input type="submit" value="Edit" class="btn btn-primary">
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                </fieldset>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+            {% else %}
+              <div>No item currently in {{ bucketlist.name }}</div>
+            {% endif %}
+            </ul>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock%}
